@@ -9,11 +9,9 @@ export const RegisterUser = async (newUser: TUser): Promise<DefaultResponse> => 
     await connectDatabase();
     newUser.password = sha256(newUser.password).toString();
     
-    const user = new User(newUser);
-    console.log(user);
-    const saveUser = await user.save();
-
     try{
+        const user = new User(newUser);
+        const saveUser = await user.save();
         if(saveUser){
             return {
                 status: 200,

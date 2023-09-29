@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Input } from "postcss";
 import { transform } from "typescript";
 import { RegisterUser } from "./RegisterUser";
+import { TUser } from "@/models/Users";
 
 interface InputFields {
     firstName: string;
@@ -58,11 +59,12 @@ export async function POST(req: NextRequest, res: NextResponse,) {
         }
 
 
-        let newUser: UserRegister = {
+        let newUser: TUser = {
             firstName: firstName,
             lastName: lastName,
             email: email,
             password: password,
+            role: 'user',
         }
 
         let result = await RegisterUser(newUser);

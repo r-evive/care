@@ -1,6 +1,6 @@
 import { authOptions } from "@/lib/auth";
 import connectDatabase from "@/lib/mongodb";
-import Users, { UserType } from "@/models/Users";
+import Users, { TUser } from "@/models/Users";
 import { getServerSession } from "next-auth";
 
 
@@ -9,8 +9,8 @@ export default async function useHasRole(role: string):Promise<boolean> {
     let userSession = await getServerSession(authOptions);
 
     if(userSession?.user?._id) {
-        let userData:UserType = await Users.findOne({_id: userSession?.user?._id}).exec();
-        
+        let userData:TUser = await Users.findOne({_id: userSession?.user?._id}).exec();
+
         if(!userData)
             return false;
 

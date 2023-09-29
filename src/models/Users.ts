@@ -1,8 +1,8 @@
 import { TPermissions } from "@/types/Permission";
 import { Schema, model, models } from "mongoose";
 
-export type UserType = {
-    _id: string;
+export type TUser = {
+    _id?: string;
     email: string;
     password: string;
     firstName: string;

@@ -1,7 +1,7 @@
 "use client";
 
-import LoginForm from '@/components/LoginForm/LoginForm';
 import React from 'react'
+import LoginForm from './LoginForm/LoginForm';
 
 
 type Props = {}

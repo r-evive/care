@@ -5,8 +5,6 @@ import { getServerSession } from 'next-auth';
 import Image from 'next/image'
 
 export default async function Home() {
-
-    console.log('server');
     const session = await getServerSession(authOptions);
 
     const hasPermission = await useHasPermission('user');

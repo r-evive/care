@@ -1,4 +1,4 @@
-import { UserType } from '@/models/Users';
+import { TUser } from '@/models/Users';
 import { Connection } from 'mongoose';
 import { User } from 'next-auth';
 

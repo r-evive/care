@@ -1,16 +1,16 @@
 import {UserRegister} from "@/types/User";
 import sha256 from 'crypto-js/sha256';
 import { DefaultResponse } from "@/types/Response";
-import User from "@/models/Users";
+import User, { TUser } from "@/models/Users";
 import connectDatabase from "@/lib/mongodb";
 
 
-export const RegisterUser = async (newUser: UserRegister): Promise<DefaultResponse> => {
+export const RegisterUser = async (newUser: TUser): Promise<DefaultResponse> => {
     await connectDatabase();
-
     newUser.password = sha256(newUser.password).toString();
-
+    
     const user = new User(newUser);
+    console.log(user);
     const saveUser = await user.save();
 
     try{

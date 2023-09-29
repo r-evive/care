@@ -1,8 +1,9 @@
-import { NextAuthOptions } from "next-auth";
+import { Account, NextAuthOptions, Session, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import connectDatabase from "./mongodb";
 import Users from "@/models/Users";
 import { SHA256 } from "crypto-js";
+import { JWT } from "next-auth/jwt";
 
 
 type Credentials = {
@@ -11,10 +12,6 @@ type Credentials = {
 }
 
 export const authOptions: NextAuthOptions = {
-    pages: {
-        signIn: '/login',
-        error: '/login',
-    },
     providers: [
         CredentialsProvider({
             name: 'Credentials',
@@ -40,20 +37,36 @@ export const authOptions: NextAuthOptions = {
             }
         } as any)
     ],
+    session: {
+        strategy: "jwt",
+    },
+    jwt: {
+        secret: process.env.NEXTAUTH_SECRET,
+    },
+    secret: process.env.NEXTAUTH_SECRET,
+    debug: process.env.NODE_ENV === 'development',
     callbacks: {
-        session: async ({user, session}:any) => {
-            console.log('session: ', {session, user});
-            if(user && user._id){
-                session.id = user._id;
+        async jwt({token, user, session, account}:any): Promise<JWT>{
+            if(user){
+                return {
+                    ...token,
+                    user: {
+                        ...user._doc,
+                        id: user._id.toString(),
+                        password: undefined,
+                    }
+                }
             }
-            return session;
-        },
-        jwt: async ({token, user}:any) => {
-            if(user && user._id){
-                token.id = user._id;
-            }
-            console.log(token, user);
+
             return token;
+        },
+        async session({session, token, user}:any): Promise<Session>{
+            return {
+                ...session,
+                user: {
+                    ...token.user,
+                }
+            }
         }
-    } as any,
+    },
 }

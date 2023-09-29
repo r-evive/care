@@ -1,32 +1,45 @@
 "use client";
 
 import { useRegisterMutation } from '@/store/api/user';
+import { useAppDispatch } from '@/store/hooks';
+import { UserRegisterInputs } from '@/types/User';
 import { get } from 'http';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 
 type Props = {}
 
-interface IFormInputs {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-    termsAccepted: boolean;
-}
-
-
 const RegisterForm = (props: Props) => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<IFormInputs>({criteriaMode: "all"});
+    const { register, handleSubmit, watch, formState: { errors } } = useForm<UserRegisterInputs>({criteriaMode: "all"});
     const [createUser] = useRegisterMutation();
+    const dispatch = useAppDispatch();
     const router = useRouter();
 
-    const handleFormSubmit = (data:IFormInputs ) => {
+    const session = useSession();
+
+    useEffect(() => {
+        if(session.status === 'authenticated'){
+            if(!session?.data?.user){
+                return;
+            }
+
+            router.push('/');
+        }
+    }, [session]);
+
+    const handleFormSubmit = (data:UserRegisterInputs) => {
         createUser(data).unwrap().then((res) => {
             if(res.status === 200){
-                router.push('/');
+                signIn('credentials', {email: data.email, password: data.password, redirect: false}).then((res) => {
+                    if(res && res.ok){
+                        router.push('/');
+                    }
+                    else{
+                        console.log(res)
+                    }
+                });
             }
         }).catch((err) => {
             console.log(err);

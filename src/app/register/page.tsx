@@ -1,6 +1,6 @@
 "use client";
 
-import RegisterForm from '@/components/RegisterForm/RegisterForm'
+import RegisterForm from '@/app/register/RegisterForm/RegisterForm'
 import Providers from '@/store/provider'
 import React from 'react'
 

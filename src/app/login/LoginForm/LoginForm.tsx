@@ -1,10 +1,11 @@
 "use client";
 import { useRegisterMutation } from '@/store/api/user';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { handleLoginError } from '@/utils/authErrors';
 import { get } from 'http';
-import { signIn, getSession } from 'next-auth/react';
+import { signIn, getSession, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 
 type Props = {}
@@ -17,22 +18,41 @@ interface IFormInputs {
 
 const LoginForm = (props: Props) => {
     const { register, handleSubmit, watch, formState: { errors }, setError } = useForm<IFormInputs>({criteriaMode: "all"});
+    const dispatch = useAppDispatch();
     const router = useRouter();
+    const session = useSession();
 
-    const handleFormSubmit = (data:IFormInputs ) => {
-        console.log('signUp');
-        signIn('credentials', {email: data.email, password: data.password, redirect: false}).then((res) => {
-            if(res && res.error){
-                setError('email', {message: handleLoginError(res.error)});
+    useEffect(() => {
+        console.log(session)
+        if(session.status === 'authenticated'){
+            console.log('123 session')
+            if(!session?.data?.user){
+                return;
             }
-            if(res && res.ok){
-                console.log('LOGGED')
-            }
-            console.log(res);
-        });
 
-        const session = getSession();
-        console.log(session);
+            router.push('/');
+        }
+    }, [session]);
+
+    const handleFormSubmit = async(data:IFormInputs ) => {
+        console.log('Login request');
+        const result = await signIn('credentials', {email: data.email, password: data.password, redirect: false});
+
+        if(result && result.ok){
+            const session = await getSession();
+            console.log(session)
+            if(!session?.user){
+                setError('email', {message: handleLoginError(result?.error ? result.error : 'Unknown error')});
+                return;
+            }
+
+            router.push('/');
+        }
+        else{
+            setError('email', {message: handleLoginError(result?.error ? result.error : 'Unknown error')});
+        }
+
+
     }
 
     const emailRules = {

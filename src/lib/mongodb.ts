@@ -10,7 +10,7 @@ async function connectDatabase() {
     const options: ConnectOptions = {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useCreateIndex: true,
+        autoIndex: true,
     } as ConnectOptions;
 
     const connection = mongoose.connect(String(process.env.MONGODB_URI), options).then((mongoose) => mongoose);

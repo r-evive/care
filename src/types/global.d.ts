@@ -1,4 +1,6 @@
+import { UserType } from '@/models/Users';
 import { Connection } from 'mongoose';
+import { User } from 'next-auth';
 
 
 declare global {

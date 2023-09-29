@@ -1,5 +1,5 @@
 import { DefaultResponse } from '@/types/Response'
-import { UserModel, UserRegister } from '@/types/User'
+import { UserRegister } from '@/types/User'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 
@@ -13,6 +13,20 @@ export const userApi = createApi({
                 method: 'POST',
                 body,
             }),
+             onQueryStarted: async(body, { dispatch, queryFulfilled }) => {
+                console.log('Registering user...')
+                console.log('Body');
+
+                try {
+                    await queryFulfilled;
+                    console.log('User registered successfully!');
+                }
+                catch (err: any) {
+                    console.log('User registration failed!');
+                }
+            }
+
+
         }),
     }),
 })

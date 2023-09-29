@@ -1,4 +1,14 @@
+import { TPermissions } from "@/types/Permission";
 import { Schema, model, models } from "mongoose";
+
+export type UserType = {
+    _id: string;
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    role: string;
+}
 
 export const UserSchema = new Schema({
     email: {
@@ -20,6 +30,14 @@ export const UserSchema = new Schema({
     lastName: {
         trim: true,
         type: String
+    },
+    role: {
+        type: String,
+        default: 'user'
+    },
+    permissions: {
+        type: Object,
+        default: {}
     }
 })
 

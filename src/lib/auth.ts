@@ -1,9 +1,10 @@
 import { Account, NextAuthOptions, Session, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import connectDatabase from "./mongodb";
-import Users from "@/models/Users";
+import Users, { TUser } from "@/models/Users";
 import { SHA256 } from "crypto-js";
 import { JWT } from "next-auth/jwt";
+import axios from "axios";
 
 
 type Credentials = {
@@ -20,18 +21,12 @@ export const authOptions: NextAuthOptions = {
                 
                 let { email, password } = credentials;
 
-                password = SHA256(password).toString();
-
-                const user = await Users.findOne({
-                    email: email,
-                    password: password,
-                });
-
-                if(user){
-                    delete user.password;
-                    return user;
+                try{
+                    const data = await axios.post<TUser>(`${process.env.NEXT_PUBLIC_URL}/api/user/login`, {email, password});
+                    return data.data;
                 }
-                else{
+                catch(error){
+                    //console.log(error);
                     return null;
                 }
             }
@@ -51,9 +46,8 @@ export const authOptions: NextAuthOptions = {
                 return {
                     ...token,
                     user: {
-                        ...user._doc,
+                        ...user,
                         id: user._id.toString(),
-                        password: undefined,
                     }
                 }
             }

@@ -8,6 +8,8 @@ export type TUser = {
     firstName: string;
     lastName: string;
     role: string;
+    accessToken?: string;
+    refreshToken?: string;
 }
 
 export const UserSchema = new Schema({

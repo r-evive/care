@@ -1,21 +1,14 @@
+import getAuthorizationParamsToken from "@/hooks/useGetAuthorizationParamsToken";
 import { verifyJWT } from "@/lib/jwt";
 import connectDatabase from "@/lib/mongodb";
 import Users, { TUser } from "@/models/Users";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest, {params}: {params: {id: string}}) {
-    const accessToken = request.headers.get('Authorization')?.replace('Bearer ', '');
-
-    if(!accessToken)
-        return NextResponse.json({message: "Unauthorized"}, {status: 401})
-
-    const verification = verifyJWT(accessToken);
-
-    if(!verification || (verification?.role != "admin" && verification?._id && verification._id !== params.id))
-        return NextResponse.json({message: "Unauthorized"}, {status: 401})
-
-    
     await connectDatabase();
+    let data = await getAuthorizationParamsToken(request);
+
+    console.log("Token in route", data)
 
     if(!params.id)
         return NextResponse.json({message: "ID is required"}, {status: 400})

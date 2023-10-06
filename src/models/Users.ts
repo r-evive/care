@@ -4,7 +4,7 @@ import { Schema, model, models } from "mongoose";
 export type TUser = {
     _id?: string;
     email: string;
-    password: string;
+    password?: string;
     firstName: string;
     lastName: string;
     role: string;

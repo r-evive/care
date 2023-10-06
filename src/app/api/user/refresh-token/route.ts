@@ -19,16 +19,17 @@ export async function POST(request: NextRequest) {
     if(!refreshToken)
         return NextResponse.json({message: "Unauthorized"}, {status: 401})
 
-    const verification = verifyJWT(refreshToken);
+    const verification = await verifyJWT(refreshToken);
 
-    if(!verification || verification && verification.exp && (Date.now() >= verification.exp * 1000))
+    if(!verification)
         return NextResponse.json({message: "Unauthorized"}, {status: 401})
 
     let user:TUser | null = await Users.findOne({_id: verification._id}).lean();
     
-    const {password, ...userData} = user;
+    if(user && user.password)
+        delete user.password;
 
-    const accessToken = signJWTAccessToken(userData);
+    const accessToken = await signJWTAccessToken(user);
 
 
     return NextResponse.json({accessToken: accessToken}, {status: 200})

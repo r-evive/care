@@ -23,12 +23,13 @@ export async function POST(request: NextRequest) {
         if(!user || user.password !== sha256(body.password).toString())
             return NextResponse.json({message: "Incorrect credentials"}, {status: 404})
     
-        const {password, ...userData} = user;
+        if(user && user.password)
+            delete user.password;
 
-        userData.accessToken = signJWTAccessToken(userData);
-        userData.refreshToken = signJWTAccessToken({_id: userData._id}, {expiresIn: process.env.JWT_REFRESH_TOKEN_EXPIRATION_TIME});
+        user.accessToken = await signJWTAccessToken(user);
+        user.refreshToken = await signJWTAccessToken({_id: user._id}, {expiresIn: Number(process.env.JWT_REFRESH_TOKEN_EXPIRATION_TIME || 2592000)});
     
-        return NextResponse.json(userData, {status: 200})
+        return NextResponse.json(user, {status: 200})
     }
     catch(error){
         return NextResponse.json({message: "Something went wrong!"}, {status: 400})

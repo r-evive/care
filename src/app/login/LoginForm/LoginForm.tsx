@@ -23,9 +23,7 @@ const LoginForm = (props: Props) => {
     const session = useSession();
 
     useEffect(() => {
-        console.log(session)
         if(session.status === 'authenticated'){
-            console.log('123 session')
             if(!session?.data?.user){
                 return;
             }
@@ -56,15 +54,15 @@ const LoginForm = (props: Props) => {
     }
 
     const emailRules = {
-        required: 'This field is required',
+        required: 'To pole jest wymagane',
         pattern: {
-            message: 'This field must be a valid email',
+            message: 'Niepoprawny adres email',
             value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
         }
     }
 
     const passwordRules = {
-        required: 'This field is required',
+        required: 'To pole jest wymagane',
     }
 
     const getFieldErrorMessage = (data:any) => {
@@ -77,24 +75,25 @@ const LoginForm = (props: Props) => {
 
     return (
         <>
-            <div className="flex flex-col items-center justify-center mx-auto w-full mb-0 md:mb-40">
-                <div className="w-full rounded-lg shadow border md:max-w-md bg-white">
-                    <form className="p-10 space-y-4" onSubmit={handleSubmit(handleFormSubmit)}>
-                        <h1 className="text-2xl font-semibold text-left mb-10">Login</h1>
+            <div className="flex flex-col justify-center items-center w-full">
+                <img src='/static/logo.png' className="object-contain w-60 h-40 mb-10" />
+                <div className="flex justify-center  w-full rounded-lg shadow border md:max-w-md bg-white">
+                    <form className="p-10 space-y-4 w-full" onSubmit={handleSubmit(handleFormSubmit)}>
+                        <h1 className="text-2xl font-semibold text-left mb-10">Logowanie</h1>
                         <div>
-                            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">Email</label>
+                            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">Email:</label>
                             <input type="text" {...register('email', {...emailRules})} className="bg-gray-50 ring-2 ring-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:text-indigo-600 focus:ring-2 focus-visible:outline-indigo-600" tabIndex={2} />
                             {getFieldErrorMessage(errors.email)}
                         </div>
 
                         <div>
-                            <label htmlFor="password" className="block mb-2 mt-0 text-sm font-medium text-gray-900">Password</label>
+                            <label htmlFor="password" className="block mb-2 mt-0 text-sm font-medium text-gray-900">Hasło:</label>
                             <input type="password" {...register('password', {...passwordRules})} className="bg-gray-50 ring-2 ring-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:text-indigo-600 focus:ring-2 focus-visible:outline-indigo-600" tabIndex={3} />
                             {getFieldErrorMessage(errors.password)}
                         </div>
 
                         <div>
-                            <button type="submit" className="mt-10 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Login</button>
+                            <button type="submit" className="mt-10 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Zaloguj się</button>
                         </div>
                     </form>
                 </div>

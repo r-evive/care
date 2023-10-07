@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function LoginLayout({children,}: {children: React.ReactNode}) {
     return (
-        <div className="flex min-h-screen flex-row items-center justify-between p-2 md:p-24 md:items-center">
+        <div className="flex flex-row items-center justify-between p-2 md:p-24 mt-10 md:items-center">
             {children}
         </div>
     )

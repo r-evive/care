@@ -12,7 +12,7 @@ const Test = (props: Props) => {
     const {data: session} = useSession();
 
     const handleFetch = async () => {
-        console.log('Session: ', session);
+        //console.log('Session: ', session);
         let userData = await axiosAuth.get(`/api/restricted/${session?.user?._id}`)    
         console.log('User data: ', userData);
     }

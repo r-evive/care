@@ -38,8 +38,10 @@ const useAxiosAuth = () => {
                     console.log(error);
                 }
             }
-            
-            signOut();
+            else if(error.response?.status === 401 && previousRequest.sent){
+                await signOut();
+            }
+
             return Promise.reject(error);
         });
 

@@ -1,20 +1,21 @@
 import { authOptions } from "@/lib/auth";
 import connectDatabase from "@/lib/mongodb";
-import { AdminRole, UserRole } from "@/models/Permissions";
+import { AdminRole, Roles, UserRole } from "@/models/Permissions";
 import Users, { TUser } from "@/models/Users";
 import { TRole } from "@/types/Permission";
 import { getServerSession } from "next-auth";
 
 
 const getUserRole = async (userData: TUser):Promise<TRole> => {
-    switch(userData && userData.role) {
-        case 'admin':
-            return AdminRole;
-        case 'user':
-            return UserRole;
-        default:
-            return UserRole;
-    }
+    if(!userData || !userData.role)
+        return Roles.find((role) => role.name === 'user') as TRole;
+
+    let roleFound = Roles.find((role) => role.name === userData.role) as TRole;
+    
+    if(!roleFound)
+        return Roles.find((role) => role.name === 'user') as TRole;
+
+    return roleFound;
 }
 
 export default async function useHasPermission(permission: string):Promise<boolean> {

@@ -1,11 +1,11 @@
 import Providers from '@/store/provider'
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Roboto } from 'next/font/google'
 import NextAuthProvider from '@/components/NextAuthProvider/NextAuthProvider'
 
 
-const inter = Inter({ subsets: ['latin'] })
+const roboto = Roboto({weight: ["400"], display: 'swap', preload: true, subsets: ['latin-ext']})
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function RootLayout({children,}: {children: React.ReactNode}) {
     return (
         <html lang="en">
-            <body className={inter.className}>
+            <body className={roboto.className}>
                 <NextAuthProvider>
                     <Providers>
                         {children}

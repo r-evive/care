@@ -4,5 +4,6 @@ export type TPermissions = {
 
 export type TRole = {
     name: string;
+    label: string;
     permissions: TPermissions;
 }

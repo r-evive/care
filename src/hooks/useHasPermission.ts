@@ -1,6 +1,6 @@
 import { authOptions } from "@/lib/auth";
 import connectDatabase from "@/lib/mongodb";
-import { AdminRole, Roles, UserRole } from "@/models/Permissions";
+import { Roles} from "@/models/Permissions";
 import Users, { TUser } from "@/models/Users";
 import { TRole } from "@/types/Permission";
 import { getServerSession } from "next-auth";

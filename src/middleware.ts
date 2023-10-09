@@ -47,6 +47,7 @@ export default withAuth(
 
             return Boolean(
                 req.cookies.get('next-auth.session-token') || // check if there's a token
+                req.cookies.get('__Secure-next-auth.session-token') || 
                     pathname.startsWith('/_next') || // exclude Next.js internals
                     pathname.startsWith('/static') || // exclude static files
                     pathname.startsWith('/api') || // exclude API routes

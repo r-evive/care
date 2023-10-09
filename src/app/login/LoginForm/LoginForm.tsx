@@ -23,6 +23,7 @@ const LoginForm = (props: Props) => {
     const session = useSession();
 
     useEffect(() => {
+        console.log('auth check',session)
         if(session.status === 'authenticated'){
             if(!session?.data?.user){
                 return;
@@ -44,6 +45,7 @@ const LoginForm = (props: Props) => {
                 return;
             }
 
+            console.log('login succcess');
             router.push('/');
         }
         else{

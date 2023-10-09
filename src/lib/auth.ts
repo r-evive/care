@@ -63,4 +63,16 @@ export const authOptions: NextAuthOptions = {
             }
         }
     },
+    cookies: {
+        sessionToken: {
+          name: 'next-auth.session-token',
+          options: {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            path: '/',
+            domain: process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_URL : 'localhost:3000',
+          },
+        },
+      }
 }

@@ -1,3 +1,6 @@
 {
-
-}
+    "rewrites":  [
+      {"source": "/auth/api/(.*)", "destination": "/auth/api/$1"},
+      {"source": "/(.*)", "destination": "/"}
+    ]
+  }

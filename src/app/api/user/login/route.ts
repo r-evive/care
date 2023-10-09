@@ -20,6 +20,7 @@ export async function POST(request: NextRequest) {
     
         const user:TUser|null = await Users.findOne({email: body.email}).lean();
     
+        console.log(sha256(body.password).toString())
         if(!user || user.password !== sha256(body.password).toString())
             return NextResponse.json({message: "Incorrect credentials"}, {status: 404})
     
@@ -28,7 +29,7 @@ export async function POST(request: NextRequest) {
 
         user.accessToken = await signJWTAccessToken(user);
         user.refreshToken = await signJWTAccessToken({_id: user._id}, {expiresIn: Number(process.env.JWT_REFRESH_TOKEN_EXPIRATION_TIME || 2592000)});
-    
+
         return NextResponse.json(user, {status: 200})
     }
     catch(error){

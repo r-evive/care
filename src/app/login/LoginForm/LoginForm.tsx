@@ -25,10 +25,11 @@ const LoginForm = (props: Props) => {
     useEffect(() => {
         console.log('auth check',session)
         if(session.status === 'authenticated'){
+            console.log(session?.data?.user);
             if(!session?.data?.user){
                 return;
             }
-
+            console.log('redirect')
             router.push('/');
         }
     }, [session]);

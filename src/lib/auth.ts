@@ -68,10 +68,10 @@ export const authOptions: NextAuthOptions = {
           name: 'next-auth.session-token',
           options: {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
+            secure: true,
             sameSite: 'lax',
             path: '/',
-            domain: process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_URL : 'localhost:3000',
+            domain: "piotr.pietryka.pl"
           },
         },
       }

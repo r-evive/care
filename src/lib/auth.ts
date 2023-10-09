@@ -63,16 +63,4 @@ export const authOptions: NextAuthOptions = {
             }
         }
     },
-    cookies: {
-        sessionToken: {
-          name: 'next-auth.session-token',
-          options: {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'lax',
-            path: '/',
-            domain: "piotr.pietryka.pl"
-          },
-        },
-      }
 }

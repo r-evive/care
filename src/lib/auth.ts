@@ -22,7 +22,7 @@ export const authOptions: NextAuthOptions = {
                 let { email, password } = credentials;
 
                 try{
-                    const data = await axios.post<TUser>(`${process.env.NEXT_PUBLIC_URL}/api/user/login`, {email, password});
+                    const data = await axios.post<TUser>(`/api/user/login`, {email, password});
                     return data.data;
                 }
                 catch(error){

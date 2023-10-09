@@ -7,6 +7,11 @@ import connectDatabase from "@/lib/mongodb";
 
 export const RegisterUser = async (newUser: TUser): Promise<DefaultResponse> => {
     await connectDatabase();
+    if(!newUser.password) return {
+        status: 400,
+        message: 'Password is required!'
+    }
+    
     newUser.password = sha256(newUser.password).toString();
     
     try{

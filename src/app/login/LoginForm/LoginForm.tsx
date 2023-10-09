@@ -30,7 +30,7 @@ const LoginForm = (props: Props) => {
                 return;
             }
             console.log('redirect')
-            router.push('/');
+            router.push(`${process.env.NEXT_PUBLIC_URL}/`);
         }
     }, [session]);
 

@@ -25,7 +25,7 @@ const RegisterForm = (props: Props) => {
                 return;
             }
 
-            router.push('/');
+            router.push(`${process.env.NEXT_PUBLIC_URL}/`);
         }
     }, [session]);
 

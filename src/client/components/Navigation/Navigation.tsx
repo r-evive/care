@@ -35,7 +35,7 @@ const Navigation = (props: Props) => {
         <>
             <nav className="bg-white border-gray-200 w-full shadow">
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                    <a href="http://localhost:3000" className="flex items-center">
+                    <a href={process.env.NEXT_PUBLIC_URL} className="flex items-center">
                         <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="Flowbite Logo" />
                         <span className="self-center text-2xl font-semibold whitespace-nowrap ">Care+</span>
                     </a>

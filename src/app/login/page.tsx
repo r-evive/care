@@ -2,6 +2,7 @@
 
 import React from 'react'
 import LoginForm from './LoginForm/LoginForm';
+import FullLayout from '@/layouts/FullLayout/FullLayout';
 
 
 type Props = {}

@@ -16,9 +16,12 @@
   }
 }
 
+html{
+    height: 100%;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
-  min-height: 100vh;
   background: linear-gradient(
       to bottom,
       transparent,

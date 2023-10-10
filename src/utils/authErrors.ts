@@ -1,8 +1,8 @@
 export const handleLoginError = (error: string) => {
     if(error === 'CredentialsSignin'){
-        return 'Invalid email or password!';
+        return 'Nieprawidłowe dane logowania!';
     }
     else{
-        return 'An unknown error occurred!';
+        return 'Coś poszło nie tak!';
     }
 }

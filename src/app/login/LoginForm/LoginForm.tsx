@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import LoginButton from './LoginButton/LoginButton';
 import { LoginFormInputs } from '@/types/Login';
+import { toast }from 'react-toastify';
 
 type Props = {}
 
@@ -27,6 +28,7 @@ const LoginForm = (props: Props) => {
 
     const handleFormSubmit = async(data:LoginFormInputs ) => {
         if(loginInProgress) return;
+        toast.success('Pomyślnie zalogowano!');
         setLoginInProgress(true);
 
         const result = await signIn('credentials', {email: data.email, password: data.password, redirect: false});
@@ -69,6 +71,10 @@ const LoginForm = (props: Props) => {
         return ''
     }
 
+    const hadleRegisterRedirect = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        event.preventDefault();
+        router.push(`${process.env.NEXT_PUBLIC_URL}/register`);
+    }
 
     return (
         <>
@@ -76,7 +82,7 @@ const LoginForm = (props: Props) => {
                 <img src='/static/logo.png' className="object-contain w-60 h-40 mb-10" />
                 <div className="flex justify-center  w-full rounded-lg shadow border md:max-w-md bg-white">
                     <form className="p-10 space-y-4 w-full" onSubmit={handleSubmit(handleFormSubmit)}>
-                        <h1 className="text-2xl font-semibold text-left mb-10">Logowanie</h1>
+                        <h1 className="text-2xl font-semibold text-left mb-10">Zaloguj się</h1>
                         <div className='relative'>
                             <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">Email:</label>
                             <input type="text" {...register('email', {...emailRules})} className={`bg-gray-50 ring-2 ring-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:text-indigo-600 focus:ring-2 focus-visible:outline-indigo-600 ${errors.email && 'ring-red-500 ring-1'}`} tabIndex={2} />
@@ -89,8 +95,11 @@ const LoginForm = (props: Props) => {
                             {getFieldErrorMessage(errors.password)}
                         </div>
 
-                        <div>
+                        <div className='relative'>
                             <LoginButton loginInProgress={loginInProgress} handleFormSubmit={handleFormSubmit} />
+                        </div>
+                        <div className='relative text-center mt-20'>
+                            <a className="hover:underline cursor-pointer" onClick={hadleRegisterRedirect}><span className="mr-1">Nie masz konta?</span><span className='text-indigo-600'>Zarejestruj się!</span></a>
                         </div>
                     </form>
                 </div>

@@ -1,6 +1,7 @@
 import FullLayout from '@/layouts/FullLayout/FullLayout'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import "react-toastify/dist/ReactToastify.css";
 
 
 

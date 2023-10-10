@@ -21,7 +21,7 @@ const LoginButton = (props: Props) => {
         let dots = [];
 
         for (let i = 0; i < 3; i++) {
-            dots.push(<Dot active={i < currentDots} />)
+            dots.push(<Dot key={`dot_${i}`} active={i < currentDots} />)
         }
 
         return dots.map(dot => dot);

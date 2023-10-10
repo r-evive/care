@@ -3,6 +3,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import NextAuthProvider from '@/components/NextAuthProvider/NextAuthProvider'
+import Toastify from '@/client/components/Toastify/Toastify'
 
 
 const roboto = Roboto({weight: ["400"], display: 'swap', preload: true, subsets: ['latin-ext']})
@@ -18,6 +19,7 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
             <body className={roboto.className}>
                 <NextAuthProvider>
                     <Providers>
+                        <Toastify/>
                         {children}
                     </Providers>
                 </NextAuthProvider>

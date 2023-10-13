@@ -9,7 +9,11 @@ const NavLayout = ({children}: React.PropsWithChildren<Props>) => {
   return (
     <main className="min-h-screen flex flex-col justify-between">
         <Navigation />
-        <section className="flex-grow">{children}</section>
+        <section className="flex-grow">
+            <div className="container mx-auto px-4">
+                {children}
+            </div>
+        </section>
         <Footer />
     </main>
   )

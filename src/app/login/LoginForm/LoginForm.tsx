@@ -6,7 +6,6 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import LoginButton from './LoginButton/LoginButton';
 import { LoginFormInputs } from '@/types/Login';
-import { toast }from 'react-toastify';
 
 type Props = {}
 
@@ -28,7 +27,7 @@ const LoginForm = (props: Props) => {
 
     const handleFormSubmit = async(data:LoginFormInputs ) => {
         if(loginInProgress) return;
-        toast.success('Pomyślnie zalogowano!');
+
         setLoginInProgress(true);
 
         const result = await signIn('credentials', {email: data.email, password: data.password, redirect: false});

@@ -27,7 +27,6 @@ const Navigation = (props: Props) => {
     }
 
     const handleLogout = async () => {
-        console.log('Logout')
         await signOut();
     }
 
@@ -52,7 +51,10 @@ const Navigation = (props: Props) => {
                                 </div>
                                 <ul className="py-2" aria-labelledby="user-menu-button">
                                     <li onClick={handleLogout}>
-                                        <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer hover:text-blue-500">Sign out</a>
+                                        <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer hover:text-blue-500">Ustawienia</a>
+                                    </li>
+                                    <li onClick={handleLogout}>
+                                        <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer hover:text-blue-500">Wyloguj</a>
                                     </li>
                                 </ul>
                             </div>

@@ -4,12 +4,10 @@ import { TCity } from '@/models/City';
 import React, { useState } from 'react'
 import { BsGeoAlt, BsCalendar4Week, BsClipboardHeart, BsSearchHeart } from 'react-icons/bs'
 import Select, { SingleValue } from 'react-select'
-import { SingleValue } from 'react-select/animated';
 
 type Props = {
     cities: TCity[]
 }
-
 
 interface CityOption {
     value: string;

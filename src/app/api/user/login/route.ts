@@ -1,5 +1,6 @@
 import { signJWTAccessToken } from "@/lib/jwt";
 import connectDatabase from "@/lib/mongodb";
+import City from "@/models/City";
 import Users, { TUser } from "@/models/Users";
 import sha256 from 'crypto-js/sha256';
 import { NextRequest, NextResponse } from "next/server";

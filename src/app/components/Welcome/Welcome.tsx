@@ -10,13 +10,11 @@ const Welcome = (props: Props) => {
             <h1 className="lg:text-6xl text-5xl font-bold text-blue-900 mb-12">
                 Opieka, wsparcie i doświadczenie
             </h1>
-
-
             <p className="text-gray-400 leading-8 text-xl md:text-lg mb-6">
                 Korzystając z naszych usług, otaczasz się profesjonalną opieką i wsparciem. Z nami masz pewność, że Twoi bliscy są w dobrych rękach, niezależnie od sytuacji - od codziennej pomocy, przez opiekę nocną, po specjalistyczne wsparcie.
             </p>
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full flex justify-center items-center gap-2 text-lg relative mb-8">
-                -   Zobacz naszą ofertę   -
+                Poznaj szczegóły
             </button>
         </div>
         <div className="w-full relative md:h-[500px] h-[400px]">

@@ -1,14 +1,17 @@
 import React from 'react'
 import Search from '../Search/Search'
 import Welcome from '../Welcome/Welcome'
+import { GetAllCities } from '@/controllers/City'
 
 type Props = {}
 
-const Main = (props: Props) => {
+const Main = async (props: Props) => {
+    let possibleCities = await GetAllCities();
+    console.log(possibleCities);
   return (
     <div className="py-4 pt-20">
         <Welcome />
-        <Search/>
+        <Search cities={possibleCities}/>
     </div>
   )
 }

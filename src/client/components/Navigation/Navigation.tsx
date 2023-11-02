@@ -1,10 +1,10 @@
 "use client";
-import { use, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useOutsideClick } from '@/client/hooks/useOutsideClick'
-
 import React from 'react'
 import { signOut, useSession } from 'next-auth/react';
 import { useGetRoleLabel } from '@/client/hooks/useGetRoleLabel';
+import { BsGear, BsDoorOpen } from 'react-icons/bs';
 
 type Props = {}
 
@@ -32,7 +32,7 @@ const Navigation = (props: Props) => {
 
     return (
         <>
-            <nav className="bg-white border-gray-200 w-full shadow">
+            <nav className={`bg-white border-gray-200 w-full shadow`}>
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                     <a href={process.env.NEXT_PUBLIC_URL} className="flex items-center">
                         <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="Flowbite Logo" />
@@ -44,17 +44,17 @@ const Navigation = (props: Props) => {
                                 <img className="w-8 h-8 rounded-full" src="https://www.w3schools.com/howto/img_avatar.png"/>
                             </button>
 
-                            <div className={`absolute right-0 top-12 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100  min-w-[150px] max-w-[300px] rounded-lg shadow ${isDropdownOpen ? 'block': 'hidden'}`}>
+                            <div className={`absolute right-0 top-11 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100  min-w-[150px] max-w-[300px] rounded-lg shadow ${isDropdownOpen ? 'block': 'hidden'}`}>
                                 <div className="px-4 py-3">
                                     <span className="block text-sm text-gray-900 ">{getUserFullName()}</span>
                                     <span className="block text-sm  text-gray-500 truncate">{roleLabel}</span>
                                 </div>
                                 <ul className="py-2" aria-labelledby="user-menu-button">
                                     <li onClick={handleLogout}>
-                                        <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer hover:text-blue-500">Ustawienia</a>
+                                        <a className="flex px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer hover:text-blue-500 whitespace-nowrap items-center gap-2"><BsGear/> Ustawienia</a>
                                     </li>
                                     <li onClick={handleLogout}>
-                                        <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer hover:text-blue-500">Wyloguj</a>
+                                        <a className="flex px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer hover:text-blue-500 whitespace-nowrap items-center gap-2"><BsDoorOpen/> Wyloguj</a>
                                     </li>
                                 </ul>
                             </div>

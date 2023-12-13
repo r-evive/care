@@ -1,12 +1,14 @@
 "use client";
 
 import { TCity } from '@/models/City';
-import React, { useState } from 'react'
+import { TService } from '@/models/Service';
+import { useGetCitiesQuery, useGetServicesQuery } from '@/store/api/data';
+import React, { useEffect, useState } from 'react'
 import { BsGeoAlt, BsCalendar4Week, BsClipboardHeart, BsSearchHeart } from 'react-icons/bs'
 import Select, { SingleValue } from 'react-select'
 
 type Props = {
-    cities: TCity[]
+    cities: TCity[],
 }
 
 interface CityOption {
@@ -24,6 +26,8 @@ interface ServiceOption {
 const Search = (props: Props) => {
     const [selectedCity, setSelectedCity] = useState<SingleValue<CityOption>>();
     const [selectedService, setSelectedService] = useState<SingleValue<ServiceOption>>();
+    const { data, error, isLoading } = useGetServicesQuery(selectedCity?.value ?? '');
+    const [cityServices, setCityServices] = useState<TService[]>([]);
 
     const getCities = () => {
         let options:CityOption[] = [];
@@ -45,6 +49,26 @@ const Search = (props: Props) => {
         return options;
     }
 
+    const getServices = () => {
+        let options:ServiceOption[] = [];
+
+        cityServices.forEach((service) => {
+            options.push({
+                value: service?._id ?? '',
+                label: service.name,
+                isDisabled: false
+            })
+        })
+
+        options.unshift({
+            value: '',
+            label: 'Wybierz usługę',
+            isDisabled: true
+        })
+
+        return options;
+    }
+
     const handleCityChange = (city:SingleValue<CityOption>) => {
         setSelectedCity(city);
         setSelectedService(null);
@@ -53,6 +77,11 @@ const Search = (props: Props) => {
     const handleServiceChange = (service:SingleValue<ServiceOption>) => {
         setSelectedService(service);
     }
+
+    useEffect(() => {
+        if(data)
+            setCityServices(data);
+    }, [data]);
     
   return (
     <div className="bg-white md:rounded-full p-8 shadow-lg max-w-7xl w-full mx-auto mt-20 rounded-2xl z-50">
@@ -64,7 +93,7 @@ const Search = (props: Props) => {
                 <div className="text w-full md:pr-5">
                     <label htmlFor="location" className="block text-md font-medium text-gray-700">Lokalizacja</label>
                     <div className="mt-1">
-                        <Select options={getCities()} className='w-full' placeholder="Wybierz miasto" onChange={handleCityChange} value={selectedCity}/>
+                        <Select options={getCities()} className='w-full' placeholder="Wybierz miasto" onChange={handleCityChange} value={selectedCity} isSearchable={false}/>
                     </div>
                 </div>
             </div>
@@ -76,7 +105,7 @@ const Search = (props: Props) => {
                 <div className="text w-full md:pr-5">
                     <label htmlFor="location" className="block text-md font-medium text-gray-700">Usługa</label>
                     <div className="mt-1">
-                        <Select options={getCities()} className='w-full' placeholder="Wybierz usługę" isDisabled={!selectedCity} value={selectedService} onChange={handleServiceChange}/>
+                        <Select options={getServices()} className='w-full' placeholder="Wybierz usługę" isDisabled={!selectedCity} value={selectedService} onChange={handleServiceChange} isSearchable={false}/>
                     </div>
                 </div>
             </div>

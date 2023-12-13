@@ -5,6 +5,8 @@ import { Roboto } from 'next/font/google'
 import NextAuthProvider from '@/components/NextAuthProvider/NextAuthProvider'
 import Toastify from '@/client/components/Toastify/Toastify'
 
+export const dynamic = 'force-dynamic'
+
 
 const roboto = Roboto({weight: ["400"], display: 'swap', preload: true, subsets: ['latin-ext']})
 

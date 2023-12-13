@@ -1,6 +1,6 @@
 "use client";
 
-import { useRegisterMutation } from '@/store/api/user';
+import { useRegisterMutation } from '@/store/api/app';
 import { useAppDispatch } from '@/store/hooks';
 import { UserRegisterInputs } from '@/types/User';
 import { get } from 'http';

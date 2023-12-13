@@ -1,11 +1,23 @@
 import { DefaultResponse } from '@/types/Response'
 import { UserRegister } from '@/types/User'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { getSession } from 'next-auth/react'
 
 
-export const userApi = createApi({
-    reducerPath: 'userApi',
-    baseQuery: fetchBaseQuery({ baseUrl: `${process.env.NEXT_PUBLIC_URL}/api` }),
+export const appAPI = createApi({
+    reducerPath: 'appAPI',
+    baseQuery: fetchBaseQuery(
+        { 
+            baseUrl: `${process.env.NEXT_PUBLIC_URL}/api`,
+            prepareHeaders: async (headers) => {
+                const session = await getSession();
+                if (session?.user?.accessToken) {
+                    headers.set('authorization', `Bearer ${session.user.accessToken}`);
+                }
+                return headers;
+            }
+        },
+    ),
     endpoints: (builder) => ({
         register: builder.mutation<DefaultResponse, UserRegister>({
             query: (body) => ({
@@ -31,4 +43,4 @@ export const userApi = createApi({
     }),
 })
 
-export const { useRegisterMutation } = userApi
+export const { useRegisterMutation } = appAPI;

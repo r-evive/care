@@ -3,9 +3,11 @@
 import { TCity } from '@/models/City';
 import { TService } from '@/models/Service';
 import { useGetCitiesQuery, useGetServicesQuery } from '@/store/api/data';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { BsGeoAlt, BsCalendar4Week, BsClipboardHeart, BsSearchHeart } from 'react-icons/bs'
 import Select, { SingleValue } from 'react-select'
+
 
 type Props = {
     cities: TCity[],
@@ -28,6 +30,7 @@ const Search = (props: Props) => {
     const [selectedService, setSelectedService] = useState<SingleValue<ServiceOption>>();
     const { data, error, isLoading } = useGetServicesQuery(selectedCity?.value ?? '');
     const [cityServices, setCityServices] = useState<TService[]>([]);
+    const router = useRouter();
 
     const getCities = () => {
         let options:CityOption[] = [];
@@ -78,6 +81,14 @@ const Search = (props: Props) => {
         setSelectedService(service);
     }
 
+    const handleSearchSubmit = async () => {
+        if(selectedCity && selectedService){
+            console.log(selectedCity.value);
+            router.push(`/search?city=${selectedCity.value}&service=${selectedService.value}`);
+        }
+        
+    }
+
     useEffect(() => {
         if(data)
             setCityServices(data);
@@ -85,7 +96,7 @@ const Search = (props: Props) => {
     
   return (
     <div className="bg-white md:rounded-full p-8 shadow-lg max-w-7xl w-full mx-auto mt-20 rounded-2xl z-50">
-        <div className="grid md:grid-cols-4 lg:gap-3 xs:grid-cols-1 gap-8">
+        <div className="grid md:grid-cols-3 lg:gap-3 xs:grid-cols-1 gap-8">
             <div className="flex justify-start items-center gap-4 md:border-r-2 border-r-0">
                 <div className="flex icon">
                     <BsGeoAlt className="w-8 h-8 text-blue-400" />
@@ -110,20 +121,8 @@ const Search = (props: Props) => {
                 </div>
             </div>
 
-            <div className="flex justify-start items-center gap-4">
-                <div className="flex icon">
-                    <BsCalendar4Week className="w-8 h-8 text-blue-400" />
-                </div>
-                <div className="text">
-                    <label htmlFor="duration" className="block text-md font-medium text-gray-700">Termin</label>
-                    <div className="mt-1">
-                        <input type="text" name="duration" id="duration" className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full text-md border-gray-300 rounded-md" placeholder="Wybierz termin" />
-                    </div>
-                </div>
-            </div>
-            
             <div className="flex justify-start items-center gap-4 w-100">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-full flex justify-center items-center gap-2 text-lg relative py-3">
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-full flex justify-center items-center gap-2 text-lg relative py-3" onClick={handleSearchSubmit}>
                     <BsSearchHeart className="text-white" />
                     Szukaj
                 </button>

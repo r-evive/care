@@ -30,25 +30,16 @@ const LoginForm = (props: Props) => {
 
         setLoginInProgress(true);
 
-        const result = await signIn('credentials', {email: data.email, password: data.password, redirect: false});
+        const result = await signIn('credentials', {email: data.email, password: data.password, redirect: false });
 
-        if(result && result.ok){
-            const session = await getSession();
-
-            if(!session?.user){
-                setLoginInProgress(false);
-                setError('email', {message: handleLoginError(result?.error ? result.error : 'Nieznany błąd')});
-                return;
-            }
-
-            router.push('/');
-        }
-        else{
+        if(!result?.ok)
+        {
             setLoginInProgress(false);
             setError('email', {message: handleLoginError(result?.error ? result.error : 'Nieznany błąd')});
+            return;
         }
 
-
+        router.back();
     }
 
     const emailRules = {

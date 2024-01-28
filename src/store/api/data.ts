@@ -10,13 +10,13 @@ export const extendedDataApi = appAPI.injectEndpoints({
     endpoints: (builder) => ({
         getCities: builder.query<TCity[], void>({
             query: () => ({
-                url: '/restricted/cities',
+                url: '/public/cities',
                 method: 'GET',
             }),
         }),
         getServices: builder.query<TService[], string>({
             query: (city:string) => ({
-                url: '/restricted/services',
+                url: '/public/services',
                 method: 'GET',
                 params: {
                     city

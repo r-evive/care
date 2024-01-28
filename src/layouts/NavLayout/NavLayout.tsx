@@ -1,6 +1,5 @@
 import Footer from '@/client/components/Footer/Footer'
 import Navigation from '@/client/components/Navigation/Navigation'
-import { getServerSession } from 'next-auth'
 import React from 'react'
 
 type Props = {}

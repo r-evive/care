@@ -10,5 +10,6 @@ export const GetAllCities = async (): Promise<TCity[]> => {
         return city;
     });
 
+    console.log(cities);
     return cities;
 }

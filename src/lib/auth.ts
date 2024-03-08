@@ -41,7 +41,15 @@ export const authOptions: NextAuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
     debug: process.env.NODE_ENV === 'development',
     callbacks: {
-        async jwt({token, user, session, account}:any): Promise<JWT>{
+        async jwt({token, user, session, account, trigger}:any): Promise<JWT>{
+            if (trigger === "update" && session) {
+                console.log('update', session, token, user);
+                return { ...token, user: {
+                    ...session.user,
+                    id: session.user.id,
+                }};
+            }
+
             if(user){
                 return {
                     ...token,

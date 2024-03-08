@@ -5,10 +5,12 @@ import { useSession } from 'next-auth/react';
 import { useIsSignedIn } from '@/client/hooks/useIsSignedIn';
 import LoginSection from './LoginSection/LoginSection';
 
-type Props = {}
+type Props = {
+    hasSession?: boolean
+}
 
 const Navigation = (props: Props) => {
-    const isSignedIn = useIsSignedIn();
+    const isSignedIn = useIsSignedIn(props?.hasSession ?? false);
 
     return (
         <>

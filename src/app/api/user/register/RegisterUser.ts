@@ -14,11 +14,6 @@ export const RegisterUser = async (newUser: TUser): Promise<DefaultResponse> => 
     
     newUser.password = sha256(newUser.password).toString();
     
-    return {
-        status: 400,
-        message: 'User registration failed!'
-    }
-    
     try{
         const user = new User(newUser);
         const saveUser = await user.save();

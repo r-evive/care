@@ -1,22 +1,41 @@
-"use client"
-import SingleDate from "./SingleDate/SingleDate"
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { DateSwiper } from "./DateSwiper/DateSwiper";
+import { FaStar } from "react-icons/fa";
+import { FaStarHalf } from "react-icons/fa";
 
 type Props = {}
 
-const CaregiverCard = async (props: Props) => {
-
-
+const CaregiverCard = (props: Props) => {
     return (
-        <div className="flex flex-col items-center ">
-            <div className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row max-w-6xl hover:bg-gray-100 ">
-                <div className="md:w-96 w-full h-full border-solid border-r-2 border-gray-700">
-                    TEST
+        <div className="max-full p-6 mt-8 bg-white border border-gray-200 rounded-lg shadow flex md:flex-row flex-col">
+            <div className="md:basis-2/5 basis-1 md:pr-8">
+                <div className="flex flex-nowrap">
+                    <div>
+                        <img src="http://placekitten.com/200/200?random=1" alt="Placeholder" className="w-20 h-20 object-contain rounded-full border-2 border-gray-300 mr-4" />
+                    </div>
+                    <div className="w-full flex-1">
+                        <h2 className="text-xl font-bold pb-1 mt-1">Anna Nowak</h2>
+                        <h5 className="text-md font-light">Opiekun osób starszych</h5>
+                    </div>
+                    <div className="flex self-start">
+                        <p className="mt-5"><BsThreeDotsVertical /></p>
+                    </div>
                 </div>
-                <div className="block">
-
+                <div className="flex mt-5">
+                    <div>
+                        <i><p className="lg:line-clamp-4 line-clamp-3 text-base text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada leo in augue tempus vulputate. Ut posuere feugiat rhoncus. In augue mi, porttitor ut scelerisque a, accumsan at purus. Pellentesque in magna non nulla dapibus laoreet vel ac lectus. Maecenas quis magna vel lorem hendrerit elementum a ut tellus.</p></i>
+                    </div>
+                </div>
+                <div className="flex mt-5">
+                    <div>
+                        <h5 className="text-md font-light flex text-yellow-500"><FaStar /><FaStar /><FaStar /><FaStar /><FaStarHalf /></h5>
+                    </div>
                 </div>
             </div>
+            <div className="md:basis-3/5 basis-0 md:border-l border-l-solid px-2 border-gray-300 md:overflow-hidden">
+                <DateSwiper />
+            </div>
+
         </div>
     )
 }

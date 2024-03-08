@@ -27,3 +27,8 @@ body {
   background-image: linear-gradient(0deg, #dcefff 0%, #f7f7f7 100%);
   overflow-x: hidden;
 }
+
+
+.slideButtonWidth{
+    width: 40px;
+}

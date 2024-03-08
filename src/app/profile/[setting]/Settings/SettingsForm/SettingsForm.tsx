@@ -22,7 +22,7 @@ const SettingsForm = () => {
         }
     });
 
-    const [state, formAction] = useFormState(updateUserSettings, {});
+    const [state, formAction] = useFormState(updateUserSettings, null);
 
 
     useEffect(() => {

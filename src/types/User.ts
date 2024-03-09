@@ -14,3 +14,10 @@ export interface UserRegisterInputs {
     confirmPassword: string;
     termsAccepted: boolean;
 }
+
+export type UserAddress = {
+    id?: string;
+    street: string;
+    code: string;
+    city: string;
+}

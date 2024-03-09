@@ -5,7 +5,7 @@ import path from 'path';
 import { verifyJWT } from './lib/jwt';
   
 const publicFileRegex = /\.(.*)$/;
-const anonymousRoutes = ['/login', '/register', '/api/user/register', '/', '/public', '/a', '/b']; // The whitelisted routes
+const anonymousRoutes = ['/login', '/register', '/api/user/register', '/', '/public']; // The whitelisted routes
 
 export default withAuth(
     async function middleware(request:any, response:any,) {

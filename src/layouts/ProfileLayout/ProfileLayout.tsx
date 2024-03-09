@@ -46,7 +46,7 @@ const ProfileLayout = async ({ path, children }: PropsWithChildren<Props>) => {
                         </div>
                     </div>
                 </div>
-                <div className="col-span-4 lg:col-span-9">
+                <div className="col-span-4 lg:col-span-9 ">
                     <div className="bg-white shadow rounded-lg p-6">
                         {children}
                     </div>

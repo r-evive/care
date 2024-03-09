@@ -1,7 +1,4 @@
-import {UserRegister} from "@/types/User";
 import { NextRequest, NextResponse } from "next/server";
-import { Input } from "postcss";
-import { transform } from "typescript";
 import { RegisterUser } from "./RegisterUser";
 import { TUser } from "@/models/Users";
 

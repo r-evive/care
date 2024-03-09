@@ -1,11 +1,10 @@
 'use client';
-
-import { updateUserSettings } from "@/controllers/User";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useFormState } from "react-dom";
 import { toast, useToast } from "react-toastify";
 import { useForm } from 'react-hook-form';
+import { UserSettingsUpdatePayload, useUpdateUserSettingsMutation } from "@/store/api/users";
 
 type SettingsFormsInputs = {
     firstName: string;
@@ -14,6 +13,7 @@ type SettingsFormsInputs = {
 
 const SettingsForm = () => {
     const { data: session, update } = useSession();
+    const [settingsUpdate] = useUpdateUserSettingsMutation();
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<SettingsFormsInputs>({
         criteriaMode: "all",
         defaultValues: {
@@ -22,30 +22,23 @@ const SettingsForm = () => {
         }
     });
 
-    const [state, formAction] = useFormState(updateUserSettings, null);
-
-
-    useEffect(() => {
-        if (!state)
-            return;
-
-        if (!state.success) {
-            toast.error(state.message);
-            return;
-        }
-
-        toast.success('Pomyślnie zaktualizowano ustawienia!');
-        let newSession = {
-            ...session,
-            user: {
-                ...session?.user,
-                firstName: state.firstName,
-                lastName: state.lastName
+    const handleFormSubmit = (data:UserSettingsUpdatePayload) => {
+        settingsUpdate(data).unwrap().then((res) => {
+            toast.success('Pomyślnie zaktualizowano ustawienia!');
+            let newSession = {
+                ...session,
+                user: {
+                    ...session?.user,
+                    firstName: data.firstName,
+                    lastName: data.lastName
+                }
             }
-        }
 
-        update(newSession);
-    }, [state])
+            update(newSession);
+        }).catch((err) => {
+            toast.error('Coś poszło nie tak! Spróbuj ponownie później!');
+        });
+    }
 
     useEffect(() => {
         if (session?.user?.firstName && session?.user?.lastName) {
@@ -59,9 +52,7 @@ const SettingsForm = () => {
 
 
     return (
-        <form action={formAction}>
-            <h2 className="text-xl font-bold mb-5">Ustawienia konta</h2>
-
+        <form onSubmit={handleSubmit(handleFormSubmit)}>
             <div className="container m-auto grid grid-cols-3 gap-5">
                 <div className="mb-5">
                     <label htmlFor="firstName" className="block mb-2 text-sm font-medium text-gray-900 ">Imię:</label>

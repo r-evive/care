@@ -53,8 +53,8 @@ const SettingsForm = () => {
 
     return (
         <form onSubmit={handleSubmit(handleFormSubmit)}>
-            <div className="container m-auto grid grid-cols-3 gap-5">
-                <div className="mb-5">
+            <div className="container m-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+                <div className="mb-2">
                     <label htmlFor="firstName" className="block mb-2 text-sm font-medium text-gray-900 ">Imię:</label>
                     <input type="text" {...register('firstName')} name="firstName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 focus-visible:outline-blue-600" required />
                 </div>

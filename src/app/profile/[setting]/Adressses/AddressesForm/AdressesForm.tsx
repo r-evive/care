@@ -35,7 +35,7 @@ const AddressesForm = (props: AddressFormProps) => {
             <div className="grid grid-cols-1">
                 {active ? <AddAddress mode={activeMode} display="form" toggleActive={toggleAddActive} addressValue={editingAddress} resetAddress={resetEditingAddress}/> : null}
             </div>
-            <div className="grid grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                 {props.adresses.map((address, index) => <Address address={address} key={index} index={index + 1} toggleEdit={toggleEditingAddress}/>)}
                 {!active && props.adresses.length < 3 ? <AddAddress mode="add" display="block" toggleActive={toggleAddActive}/> : null}
             </div>

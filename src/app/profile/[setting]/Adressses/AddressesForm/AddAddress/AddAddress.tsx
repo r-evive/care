@@ -69,6 +69,8 @@ const AddAddress = (props:AddAddressProps) => {
     const handleOnCancelClick = () => {
         if(props.toggleActive)
             props.toggleActive(false);
+        if(props.resetAddress)
+            props.resetAddress();
     }
 
     return(

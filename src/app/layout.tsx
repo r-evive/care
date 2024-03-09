@@ -1,5 +1,7 @@
 import Providers from '@/store/provider'
 import './globals.css'
+import 'react-datepicker/dist/react-datepicker.css'
+
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import NextAuthProvider from '@/components/NextAuthProvider/NextAuthProvider'

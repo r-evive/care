@@ -1,5 +1,5 @@
 import { TPermissions } from "@/types/Permission";
-import { UserAddress } from "@/types/User";
+import { UserAddress, UserPerson } from "@/types/User";
 import { Schema, model, models } from "mongoose";
 
 export type TUser = {
@@ -12,6 +12,7 @@ export type TUser = {
     accessToken?: string;
     refreshToken?: string;
     addresses?: Array<UserAddress>;
+    people: Array<UserPerson>;
 }
 
 export const UserSchema = new Schema({
@@ -44,6 +45,10 @@ export const UserSchema = new Schema({
         default: {}
     },
     addresses: {
+        type: Array,
+        default: []
+    },
+    people: {
         type: Array,
         default: []
     }

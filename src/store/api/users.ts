@@ -1,6 +1,6 @@
 import { DefaultResponse } from "@/types/Response";
 import { appAPI } from "./app";
-import { UserAddress } from "@/types/User";
+import { UserAddress, UserPerson } from "@/types/User";
 
 export type UserSettingsUpdatePayload = {
     firstName: string;
@@ -37,8 +37,31 @@ export const extendedUserApi = appAPI.injectEndpoints({
                 method: 'PATCH',
                 body,
             }),
+        }),
+        addPerson: builder.mutation<DefaultResponse, UserPerson>({
+            query: (body) => ({
+                url: '/restricted/user/person',
+                method: 'PUT',
+                body,
+            }),
+        }),
+        deletePerson: builder.mutation<DefaultResponse, string>({
+            query: (id) => ({
+                url: '/restricted/user/person',
+                method: 'DELETE',
+                body: { id }
+            }),
+        }),
+        updatePerson: builder.mutation<DefaultResponse, UserPerson>({
+            query: (body) => ({
+                url: '/restricted/user/person',
+                method: 'PATCH',
+                body,
+            }),
         })
     }),
 })
 
-export const { useUpdateUserSettingsMutation, useAddAddressMutation, useDeleteAddressMutation, useUpdateAddressMutation } = extendedUserApi;
+export const {  useUpdateUserSettingsMutation,
+                useAddAddressMutation, useDeleteAddressMutation, useUpdateAddressMutation,
+                useAddPersonMutation, useDeletePersonMutation, useUpdatePersonMutation  } = extendedUserApi;

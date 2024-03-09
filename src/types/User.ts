@@ -21,3 +21,10 @@ export type UserAddress = {
     code: string;
     city: string;
 }
+
+export type UserPerson = {
+    id?: string;
+    firstName: string;
+    lastName: string;
+    birthDate: Date;
+}

@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import ProfilePage from "./ProfilePage/ProfilePage";
 import Settings from "./Settings/Settings";
 import Adresses from "./Adressses/Adresses";
+import People from "./People/People";
 
 export default function Profile({params}: {params: {setting: string}}) {
 
@@ -18,7 +19,7 @@ export default function Profile({params}: {params: {setting: string}}) {
                     <Adresses />
                 </ProfilePage>
                 <ProfilePage visible={params.setting === 'people'}>
-                    People
+                    <People />
                 </ProfilePage>
                 <ProfilePage visible={params.setting === 'availability'}>
                     Availability

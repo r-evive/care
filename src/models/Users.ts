@@ -12,7 +12,7 @@ export type TUser = {
     accessToken?: string;
     refreshToken?: string;
     addresses?: Array<UserAddress>;
-    people: Array<UserPerson>;
+    people?: Array<UserPerson>;
 }
 
 export const UserSchema = new Schema({

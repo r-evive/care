@@ -1,4 +1,4 @@
-import { TUser } from "@/models/Users";
+import { TUser, TUserSession } from "@/models/Users";
 import { DefaultSession } from "next-auth";
 
 declare module "next-auth" {
@@ -8,7 +8,7 @@ declare module "next-auth" {
         refreshToken?: string;
         token?: string;
         error?: string;
-        user?: TUser;
+        user?: TUserSession;
       }
 }
 

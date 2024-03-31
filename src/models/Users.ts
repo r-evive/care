@@ -1,6 +1,7 @@
 import { TPermissions } from "@/types/Permission";
 import { UserAddress, UserPerson } from "@/types/User";
 import { Schema, model, models } from "mongoose";
+import { AvailabilityScope } from "../types/User";
 
 export type TUser = {
     _id?: string;
@@ -13,6 +14,17 @@ export type TUser = {
     refreshToken?: string;
     addresses?: Array<UserAddress>;
     people?: Array<UserPerson>;
+}
+
+export type TUserSession = {
+    _id?: string;
+    email: string;
+    password?: string;
+    firstName: string;
+    lastName: string;
+    role: string;
+    accessToken?: string;
+    refreshToken?: string;
 }
 
 export const UserSchema = new Schema({
@@ -49,6 +61,10 @@ export const UserSchema = new Schema({
         default: []
     },
     people: {
+        type: Array,
+        default: []
+    },
+    availability:{
         type: Array,
         default: []
     }

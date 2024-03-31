@@ -1,7 +1,7 @@
 import { signJWTAccessToken } from "@/lib/jwt";
 import connectDatabase from "@/lib/mongodb";
 import City from "@/models/City";
-import Users, { TUser } from "@/models/Users";
+import Users, { TUser, TUserSession } from "@/models/Users";
 import sha256 from 'crypto-js/sha256';
 import { NextRequest, NextResponse } from "next/server";
 
@@ -15,13 +15,19 @@ export async function POST(request: NextRequest) {
 
     try{
         const body: LoginRequest = await request.json();
-        console.log('body', body)
+
         if(!body.email || !body.password)
             return NextResponse.json({message: "Email and password are required"}, {status: 400})
     
-        const user:TUser|null = await Users.findOne({email: body.email}).lean();
+        const user:TUserSession|null = await Users.findOne({email: body.email}, {
+            password: 1,
+            firstName: 1,
+            lastName: 1,
+            role: 1,
+            email: 1
+        }).lean();
     
-        console.log(sha256(body.password).toString())
+
         if(!user || user.password !== sha256(body.password).toString())
             return NextResponse.json({message: "Incorrect credentials"}, {status: 404})
     

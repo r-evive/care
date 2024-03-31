@@ -58,10 +58,19 @@ export const extendedUserApi = appAPI.injectEndpoints({
                 method: 'PATCH',
                 body,
             }),
+        }),
+        setAvailability: builder.mutation<DefaultResponse, any>({
+            query: (body) => ({
+                url: '/restricted/user/availability',
+                method: 'POST',
+                body,
+            }),
         })
     }),
 })
 
 export const {  useUpdateUserSettingsMutation,
                 useAddAddressMutation, useDeleteAddressMutation, useUpdateAddressMutation,
-                useAddPersonMutation, useDeletePersonMutation, useUpdatePersonMutation  } = extendedUserApi;
+                useAddPersonMutation, useDeletePersonMutation, useUpdatePersonMutation,
+                useSetAvailabilityMutation
+                } = extendedUserApi;

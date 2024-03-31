@@ -30,7 +30,17 @@ const Search = (props: Props) => {
     const [selectedService, setSelectedService] = useState<SingleValue<ServiceOption>>();
     const { data, error, isLoading } = useGetServicesQuery(selectedCity?.value ?? '');
     const [cityServices, setCityServices] = useState<TService[]>([]);
+    const [isMounted, setIsMounted] = useState(false);
+
     const router = useRouter();
+
+    useEffect(() => {
+        setIsMounted(true);
+
+        return () => {
+            setIsMounted(false);
+        }
+    }, [])
 
     const getCities = () => {
         let options:CityOption[] = [];
@@ -104,7 +114,7 @@ const Search = (props: Props) => {
                 <div className="text w-full md:pr-5">
                     <label htmlFor="location" className="block text-md font-medium text-gray-700">Lokalizacja</label>
                     <div className="mt-1">
-                        <Select options={getCities()} className='w-full' placeholder="Wybierz miasto" onChange={handleCityChange} value={selectedCity} isSearchable={false}/>
+                       {isMounted ? <Select options={getCities()} className='w-full' placeholder="Wybierz miasto" onChange={handleCityChange} value={selectedCity} id="citySelector" isSearchable={false}/>: null}
                     </div>
                 </div>
             </div>
@@ -116,7 +126,7 @@ const Search = (props: Props) => {
                 <div className="text w-full md:pr-5">
                     <label htmlFor="location" className="block text-md font-medium text-gray-700">Usługa</label>
                     <div className="mt-1">
-                        <Select options={getServices()} className='w-full' placeholder="Wybierz usługę" isDisabled={!selectedCity} value={selectedService} onChange={handleServiceChange} isSearchable={false}/>
+                        {isMounted ? <Select options={getServices()} className='w-full' placeholder="Wybierz usługę" isDisabled={!selectedCity} value={selectedService} onChange={handleServiceChange} isSearchable={false} id="serviceSelector"/> : null}
                     </div>
                 </div>
             </div>

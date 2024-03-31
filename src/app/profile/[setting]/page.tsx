@@ -5,6 +5,7 @@ import ProfilePage from "./ProfilePage/ProfilePage";
 import Settings from "./Settings/Settings";
 import Adresses from "./Adressses/Adresses";
 import People from "./People/People";
+import Availability from "./Availability/Availability";
 
 export default function Profile({params}: {params: {setting: string}}) {
 
@@ -22,7 +23,7 @@ export default function Profile({params}: {params: {setting: string}}) {
                     <People />
                 </ProfilePage>
                 <ProfilePage visible={params.setting === 'availability'}>
-                    Availability
+                    <Availability />
                 </ProfilePage>
             </ProfileLayout>
         </NavLayout>

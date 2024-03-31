@@ -1,7 +1,7 @@
 import { Account, NextAuthOptions, Session, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import connectDatabase from "./mongodb";
-import Users, { TUser } from "@/models/Users";
+import Users, { TUser, TUserSession } from "@/models/Users";
 import { SHA256 } from "crypto-js";
 import { JWT } from "next-auth/jwt";
 import axios from "axios";
@@ -22,7 +22,7 @@ export const authOptions: NextAuthOptions = {
                 let { email, password } = credentials;
 
                 try{
-                    const data = await axios.post<TUser>(`${process.env.NEXT_PUBLIC_URL}/api/user/login`, {email, password});
+                    const data = await axios.post<TUserSession>(`${process.env.NEXT_PUBLIC_URL}/api/user/login`, {email, password});
                     return data.data;
                 }
                 catch(error){

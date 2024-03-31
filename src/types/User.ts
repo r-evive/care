@@ -28,3 +28,18 @@ export type UserPerson = {
     lastName: string;
     birthDate: Date;
 }
+
+export type AvailabilityScope = {
+    id: string;
+    date: Date;
+    blocks: AvailabilityBlock[];
+}
+
+export type AvailabilityBlock = {
+    id: string;
+    startTime: Date;
+    endTime: Date;
+    duration: number;
+    status: 'unavailable' | 'pending' | 'free' | 'booked';
+    reservationId?: string;
+}

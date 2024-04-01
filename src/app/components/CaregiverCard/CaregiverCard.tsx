@@ -35,7 +35,7 @@ const CaregiverCard = (props: Props) => {
                     </div>
                 </div>
             </div>
-            <div className="md:basis-3/5 basis-0 md:border-l border-l-solid px-2 border-gray-300 md:overflow-hidden">
+            <div className="md:basis-3/5 basis-0 md:border-l border-l-solid px-2 border-gray-300 md:overflow-hidden md:mt-0 mt-10">
                 <DateSwiper availability={props.caregiver.availability}/>
             </div>
 

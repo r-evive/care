@@ -49,7 +49,7 @@ export const DateSwiper = (props:DateSwiperProps) => {
                     onSlideChange={handleSlideChange}>
                         {props.availability.map((day, index) => (
                             <SwiperSlide key={index}>
-                                <SingleDate date={day.date} blocks={day.blocks} showAll={showMore}/>
+                                <SingleDate date={day.date} blocks={day.blocks} showAll={showMore} key={index}/>
                             </SwiperSlide>
                         ))}
                     </Swiper>

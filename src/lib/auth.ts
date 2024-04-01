@@ -5,6 +5,7 @@ import Users, { TUser, TUserSession } from "@/models/Users";
 import { SHA256 } from "crypto-js";
 import { JWT } from "next-auth/jwt";
 import axios from "axios";
+import { checkIfJWTExpired, signJWTAccessToken, verifyJWT } from "./jwt";
 
 
 type Credentials = {
@@ -43,12 +44,22 @@ export const authOptions: NextAuthOptions = {
     callbacks: {
         async jwt({token, user, session, account, trigger}:any): Promise<JWT>{
             if (trigger === "update" && session) {
-                console.log('update', session, token, user);
                 return { ...token, user: {
                     ...session.user,
                     id: session.user.id,
                 }};
             }
+
+            let tokenExpired = await checkIfJWTExpired(token?.user?.accessToken);
+            if(tokenExpired){
+                let verifyRefreshToken = await verifyJWT(token?.user?.refreshToken);
+                if(verifyRefreshToken){
+                    console.log("Refreshing access token");
+                    const accessToken = await signJWTAccessToken(user);
+                    token.user.accessToken = accessToken;
+                }
+            }
+
 
             if(user){
                 return {

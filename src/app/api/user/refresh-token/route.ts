@@ -31,6 +31,8 @@ export async function POST(request: NextRequest) {
 
     const accessToken = await signJWTAccessToken(user);
 
+    console.log("New Access Token: ", accessToken);
+
 
     return NextResponse.json({accessToken: accessToken}, {status: 200})
 }

@@ -23,6 +23,19 @@ export async function signJWTAccessToken(payload:any, options: TSignOptions = DE
         .sign(new TextEncoder().encode(secret));
 }
 
+
+export async function checkIfJWTExpired(token:string):Promise<boolean>{
+    if(!token)
+        return false;
+    try{
+        const {payload} = await jwtVerify(token, new TextEncoder().encode(String(process.env.JWT_SECRET)));
+        return payload.exp  ? payload.exp < Math.floor(Date.now() / 1000) : false;
+    }
+    catch(error){
+        return true;
+    }
+}
+
 export async function verifyJWT(token:string):Promise<JWTPayload|null>{
     try{
         const secret = String(process.env.JWT_SECRET);

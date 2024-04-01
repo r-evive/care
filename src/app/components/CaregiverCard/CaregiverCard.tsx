@@ -2,8 +2,11 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { DateSwiper } from "./DateSwiper/DateSwiper";
 import { FaStar } from "react-icons/fa";
 import { FaStarHalf } from "react-icons/fa";
+import { TServiceUser } from "@/types/Service";
 
-type Props = {}
+type Props = {
+    caregiver: TServiceUser;
+}
 
 const CaregiverCard = (props: Props) => {
     return (
@@ -11,10 +14,10 @@ const CaregiverCard = (props: Props) => {
             <div className="md:basis-2/5 basis-1 md:pr-8">
                 <div className="flex flex-nowrap">
                     <div>
-                        <img src="http://placekitten.com/200/200?random=1" alt="Placeholder" className="w-20 h-20 object-contain rounded-full border-2 border-gray-300 mr-4" />
+                        <img src="https://avatar.iran.liara.run/public/boy" alt="Placeholder" className="w-20 h-20 object-contain rounded-full border-2 border-gray-300 mr-4" />
                     </div>
                     <div className="w-full flex-1">
-                        <h2 className="text-xl font-bold pb-1 mt-1">Anna Nowak</h2>
+                        <h2 className="text-xl font-bold pb-1 mt-1">{props.caregiver.firstName} {props.caregiver.lastName}</h2>
                         <h5 className="text-md font-light">Opiekun osób starszych</h5>
                     </div>
                     <div className="flex self-start">
@@ -33,7 +36,7 @@ const CaregiverCard = (props: Props) => {
                 </div>
             </div>
             <div className="md:basis-3/5 basis-0 md:border-l border-l-solid px-2 border-gray-300 md:overflow-hidden">
-                <DateSwiper />
+                <DateSwiper availability={props.caregiver.availability}/>
             </div>
 
         </div>

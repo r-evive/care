@@ -5,3 +5,5 @@ export const SwiperBreakpoints = {
     1024: { slidesPerView: 3, spaceBetween: 20 },
     1280: { slidesPerView: 4, spaceBetween: 20 },
 }
+
+export const DEFAULT_VISIBLE_BLOCKS = 4;

@@ -1,15 +1,17 @@
 import NavLayout from '@/layouts/NavLayout/NavLayout';
 import CaregiverCard from '../components/CaregiverCard/CaregiverCard';
 import { Suspense } from 'react'
+import { SearchResource } from '@/controllers/Services';
+import { TServiceUser } from '@/types/Service';
 
-export default function Search() {
+export default async function Search() {
+    let caregivers:TServiceUser[] = await SearchResource('', '', {});
+
     return (
         <NavLayout>
-            <Suspense fallback={<p>Loading feed...</p>}>
-                <CaregiverCard/>
-            </Suspense>
-            <CaregiverCard/>
-            <CaregiverCard/>
+            {caregivers.map((caregiver) => {
+                return <CaregiverCard key={caregiver._id} caregiver={caregiver} />;
+            })}
         </NavLayout>
     )
 }

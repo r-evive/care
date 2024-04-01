@@ -1,13 +1,24 @@
 import moment from "moment"
 import { SingleBlock } from "./SingleBlock/SingleBlock"
+import { AvailabilityBlock } from "@/types/User";
+import { DEFAULT_VISIBLE_BLOCKS } from "../../SwiperOptions";
+import { TSwiperSelected } from "../../SwiperContext/SwiperContext";
 
 
-export const Picker = () => {
+type PickerProps = {
+    blocks: AvailabilityBlock[];
+    showAll: boolean;
+}
+
+export const Picker = (props:PickerProps) => {
+
     return (
         <div className='flex flex-col items-center justify-center p-2'>
-            {Array.from({length: 5}, (_, i) => (
-                <SingleBlock key={i} startTime={moment().set({hour: 8+i, minutes: 0, seconds: 0, millisecond: 0})} duration={60} />
-            ))}
+            {props.blocks.map((block, index) => {
+                if(index < DEFAULT_VISIBLE_BLOCKS || props.showAll)
+                    return <SingleBlock key={index} block={block}/>
+                return null;
+            })}
         </div>
     )
 }

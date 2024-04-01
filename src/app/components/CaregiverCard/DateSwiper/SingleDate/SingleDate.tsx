@@ -1,11 +1,15 @@
 "use client";
 
 import moment from 'moment';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Picker } from './Picker/Picker';
+import { AvailabilityBlock } from '@/types/User';
+import { SwiperContext, TSwiperSelected } from '../SwiperContext/SwiperContext';
 
 type SingleDateProps = {
-    date: string;
+    date: Date | null;
+    blocks: AvailabilityBlock[];
+    showAll: boolean;
 }
 
 const SingleDate = (props: SingleDateProps) => {
@@ -31,7 +35,7 @@ const SingleDate = (props: SingleDateProps) => {
                 {date?.format('DD.MM')}
             </h4>
             <div className='flex flex-col items-center justify-center'>
-                <Picker />
+                <Picker blocks={props.blocks} showAll={props.showAll}/>
             </div>
         </div>
     )

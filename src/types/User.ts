@@ -43,3 +43,13 @@ export type AvailabilityBlock = {
     status: 'unavailable' | 'pending' | 'free' | 'booked';
     reservationId?: string;
 }
+
+
+export type TSerializedAvailabilityBlock = {
+    id: string;
+    startTime: string;
+    endTime: string;
+    duration: number;
+    status: 'unavailable' | 'pending' | 'free' | 'booked';
+    reservationId?: string;
+}

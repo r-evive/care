@@ -98,7 +98,7 @@ export const SingleBlock = (props:SingleBlockProps) => {
     }
 
     return (
-        <div className={`flex flex-col items-center justify-center p-2 bg-blue-50 rounded-lg mb-2 px-8 text-sm whitespace-nowrap cursor-pointer transition ${isSelected() ? 'bg-blue-500 text-white': ''} ${isBetweenSelectedAndHover() ? 'bg-blue-300' : ''}`} onClick={handleBlockClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+        <div className={`flex flex-col items-center justify-center p-2 bg-blue-50 rounded-lg mb-2 px-8 text-sm whitespace-nowrap cursor-pointer transition ${isSelected() ? 'bg-blue-500 text-white': ''} ${isBetweenSelectedAndHover() ? 'outline outline-blue-400 outline-1 bg-blue-200' : ''}`} onClick={handleBlockClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
             {moment(props.block.startTime).format('HH:mm')} - {moment(props.block.endTime).format('HH:mm')}
         </div>
     )

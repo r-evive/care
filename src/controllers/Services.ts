@@ -24,37 +24,24 @@ export const SearchResource = async (cityId:string, serviceId:string, query: TSe
         {
             $match: {
                 role: 'caregiver',
-                availability: {
-                    $elemMatch: {
-                        $and: [
-                            {
-                                date: {
-                                    $gte: new Date()
-                                }
-                            },
-                            {
-                                blocks: {
-                                    $elemMatch: {
-                                        status: "free"
-                                    }
-                                }
-                            }
-                        ]
-                    }
-                }
-            }
-        },
-        {
-            $project: {
-                _id: 1,
-                firstName: 1,
-                lastName: 1,
-                availability: 1,
             }
         },
         {$unwind: "$availability"},
         {$unwind: "$availability.blocks"},
-        {$match: {"availability.blocks.status": "free"}},
+        {
+            $match:{
+                $and: [
+                    {
+                        "availability.date": {
+                            $gte: new Date()
+                        }
+                    },
+                    {
+                        "availability.blocks.status": "free"
+                    }
+                ]
+            }
+        },
         {
             $group: {
                 _id: {

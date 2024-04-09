@@ -9,6 +9,7 @@ import { UserSettingsUpdatePayload, useUpdateUserSettingsMutation } from "@/stor
 type SettingsFormsInputs = {
     firstName: string;
     lastName: string;
+    description: string;
 }
 
 const SettingsForm = () => {
@@ -18,7 +19,8 @@ const SettingsForm = () => {
         criteriaMode: "all",
         defaultValues: {
             firstName: session?.user?.firstName,
-            lastName: session?.user?.lastName
+            lastName: session?.user?.lastName,
+            description: session?.user?.description
         }
     });
 
@@ -30,7 +32,8 @@ const SettingsForm = () => {
                 user: {
                     ...session?.user,
                     firstName: data.firstName,
-                    lastName: data.lastName
+                    lastName: data.lastName,
+                    description: data.description
                 }
             }
 
@@ -44,7 +47,8 @@ const SettingsForm = () => {
         if (session?.user?.firstName && session?.user?.lastName) {
             reset({
                 firstName: session?.user?.firstName,
-                lastName: session?.user?.lastName
+                lastName: session?.user?.lastName,
+                description: session?.user?.description
             });
         }
 
@@ -62,6 +66,11 @@ const SettingsForm = () => {
                     <label htmlFor="lastName" className="block mb-2 text-sm font-medium text-gray-900 ">Nazwisko:</label>
                     <input type="text" {...register('lastName')}  name="lastName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 focus-visible:outline-blue-600" required />
                 </div>
+            </div>
+
+            <div className="container m-auto">
+                <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 ">Description:</label>
+                <textarea {...register('description')} name="description" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 focus-visible:outline-blue-600 mb-5" required />
             </div>
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex justify-center items-center gap-2 text-sm relative md:mr-14 w-full" type="submit">Zapisz</button>
         </form>)

@@ -9,4 +9,5 @@ export type TServiceUser = {
     firstName: string;
     lastName: string;
     availability: AvailabilityScope[];
+    description: string;
 }

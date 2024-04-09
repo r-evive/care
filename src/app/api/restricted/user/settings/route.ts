@@ -23,21 +23,25 @@ export async function PATCH(request: NextRequest) {
         const settingsSchema = z.object({
             firstName: z.string().min(1, { message: 'Imię jest wymagane' }),
             lastName: z.string().min(1, { message: 'Nazwisko jest wymagane' }),
+            description: z.string().optional()
         })
 
         const data = settingsSchema.parse({
             firstName: body.firstName,
             lastName: body.lastName,
+            description: body.description
         })
 
         let update = await Users.findOneAndUpdate({ _id: session.user._id }, {
             firstName: data.firstName,
-            lastName: data.lastName
+            lastName: data.lastName,
+            description: data.description
         });
 
         return NextResponse.json({
             firstName: data.firstName,
-            lastName: data.lastName
+            lastName: data.lastName,
+            description: data.description
         }, { status: 200 })
     }
     catch (error) {

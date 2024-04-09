@@ -26,7 +26,7 @@ const CaregiverCard = (props: Props) => {
                 </div>
                 <div className="flex mt-5">
                     <div>
-                        <i><p className="lg:line-clamp-4 line-clamp-3 text-base text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada leo in augue tempus vulputate. Ut posuere feugiat rhoncus. In augue mi, porttitor ut scelerisque a, accumsan at purus. Pellentesque in magna non nulla dapibus laoreet vel ac lectus. Maecenas quis magna vel lorem hendrerit elementum a ut tellus.</p></i>
+                        <i><p className="lg:line-clamp-4 line-clamp-3 text-base text-gray-700">{props.caregiver.description}</p></i>
                     </div>
                 </div>
                 <div className="flex mt-5">

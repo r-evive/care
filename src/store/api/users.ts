@@ -5,6 +5,7 @@ import { UserAddress, UserPerson } from "@/types/User";
 export type UserSettingsUpdatePayload = {
     firstName: string;
     lastName: string;
+    description: string;
 }
 
 

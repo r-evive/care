@@ -50,6 +50,7 @@ export const SearchResource = async (cityId:string, serviceId:string, query: TSe
                 },
                 firstName: {$first: "$firstName"},
                 lastName: {$first: "$lastName"},
+                description: {$first: "$description"},
                 blocks: {$push: "$availability.blocks"},
                 date: {$first: "$availability.date"}
             }
@@ -62,6 +63,7 @@ export const SearchResource = async (cityId:string, serviceId:string, query: TSe
                 _id: "$_id.id",
                 firstName: {$first: "$firstName"},
                 lastName: {$first: "$lastName"},
+                description: {$first: "$description"},
                 availability: {
                     $push: {
                         date: "$date",
@@ -75,6 +77,7 @@ export const SearchResource = async (cityId:string, serviceId:string, query: TSe
                 _id: 1,
                 firstName: 1,
                 lastName: 1,
+                description: 1,
                 availability: 1,
             }
         }

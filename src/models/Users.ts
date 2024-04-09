@@ -25,6 +25,7 @@ export type TUserSession = {
     role: string;
     accessToken?: string;
     refreshToken?: string;
+    description?: string;
 }
 
 export const UserSchema = new Schema({
@@ -67,7 +68,11 @@ export const UserSchema = new Schema({
     availability:{
         type: Array,
         default: []
-    }
+    },
+    description: {
+        type: String,
+        default: ''
+    },
 })
 
 export default models.Users ?? model('Users', UserSchema, 'users');

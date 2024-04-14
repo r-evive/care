@@ -53,3 +53,10 @@ export type TSerializedAvailabilityBlock = {
     status: 'unavailable' | 'pending' | 'free' | 'booked';
     reservationId?: string;
 }
+
+export type TCaregiverDetails = {
+    _id: string;
+    firstName: string;
+    lastName: string;
+    description: string;
+}

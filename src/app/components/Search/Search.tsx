@@ -93,17 +93,15 @@ const Search = (props: Props) => {
 
     const handleSearchSubmit = async () => {
         if(selectedCity && selectedService){
-            console.log(selectedCity.value);
-            router.push(`/search?city=${selectedCity.value}&service=${selectedService.value}`);
+            router.push(`/search/${selectedCity.value}/${selectedService.value}`);
         }
-        
     }
 
     useEffect(() => {
         if(data)
             setCityServices(data);
     }, [data]);
-    
+
   return (
     <div className="bg-white md:rounded-full p-8 shadow-lg max-w-7xl w-full mx-auto mt-20 rounded-2xl z-50">
         <div className="grid md:grid-cols-3 lg:gap-3 xs:grid-cols-1 gap-8">

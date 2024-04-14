@@ -12,16 +12,24 @@ import { IoArrowForward } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
 import { AvailabilityScope } from "@/types/User";
 import { SwiperContext, TSwiperContext, TSwiperSelected } from "./SwiperContext/SwiperContext";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { setServiceData } from "@/store/slices/reservationSlice";
+import { useRouter } from "next/navigation";
 
 type DateSwiperProps = {
     availability: AvailabilityScope[];
+    caregiverId: string;
+    serviceId: string;
 }
 
 export const DateSwiper = (props:DateSwiperProps) => {
+    const router = useRouter();
     const [swiperInstance, setSwiperInstance] = useState<SwiperType>();
     const [isBeginning, setIsBeginning] = useState<boolean>(true);
     const [isEnd, setIsEnd] = useState<boolean>(false);
     const [showMore, setShowMore] = useState<boolean>(false);
+    const reservationsDetails = useAppSelector(state => state.reservation);
+    const dispatch = useAppDispatch();
 
     const [selectedBlocks, setSelectedBlocks] = useState<TSwiperSelected>({firstBlock: undefined, lastBlock: undefined, hoverBlock: undefined});
 
@@ -36,6 +44,19 @@ export const DateSwiper = (props:DateSwiperProps) => {
 
     const handleShowMore = () => {
         setShowMore(true);
+    }
+
+    const handleReservationButtonClick = async () => {
+        if(!reservationsDetails?.startBlock || !reservationsDetails?.endBlock)
+            return;
+
+        dispatch(setServiceData({
+            serviceId: props.serviceId,
+            caregiverId: props.caregiverId,
+        }))
+
+
+        router.push(`/reservation/${props.caregiverId}/${props.serviceId}`);
     }
 
     return (
@@ -57,7 +78,7 @@ export const DateSwiper = (props:DateSwiperProps) => {
                 </div>
                 <div className="flex flex-col mt-2">
                     {!showMore ? <p className="flex items-center text-sm text-center mb-2 text-blue-900 justify-center cursor-pointer" onClick={handleShowMore}>Pokaż więcej <IoIosArrowDown className="ml-2"/></p> : null}
-                    {selectedBlocks?.firstBlock && selectedBlocks?.lastBlock ? <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex justify-center items-center gap-2 text-sm relative md:mr-14 w-full">Rezerwuję <IoArrowForward /></button>  :null}
+                    {selectedBlocks?.firstBlock && selectedBlocks?.lastBlock ? <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex justify-center items-center gap-2 text-sm relative md:mr-14 w-full" onClick={handleReservationButtonClick}>Rezerwuję <IoArrowForward /></button>  :null}
                 </div>
             </div>
         </SwiperContext.Provider>

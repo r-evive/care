@@ -1,0 +1,4 @@
+Stop-Process -Name notepad
+Get-Process | Sort-Object -Property CPU -Descending
+Get-Date
+Get-Process | ConvertTo-Html | Out-File -FilePath "procesy.html"

@@ -1,10 +1,8 @@
 import NavLayout from '@/layouts/NavLayout/NavLayout';
-import CaregiverCard from '../../components/CaregiverCard/CaregiverCard';
-import { SearchResource } from '@/controllers/Services';
-import { TServiceUser } from '@/types/Service';
 import { redirect } from 'next/navigation'
 import { GetCaregiverDetails } from '@/controllers/Reservation';
 import { TCaregiverDetails } from '@/types/User';
+import Reservation from './Reservation/Reservation';
 
 
 
@@ -22,7 +20,7 @@ export default async function Search({ params }: { params: { slug: string } }) {
 
     return (
         <NavLayout>
-            Rezerwacja!!!
+            <Reservation caregiver={caregiver}/>
             {JSON.stringify(params)}
         </NavLayout>
     )

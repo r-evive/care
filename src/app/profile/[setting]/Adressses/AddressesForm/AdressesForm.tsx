@@ -7,6 +7,7 @@ import Address from "./Address/Address";
 
 type AddressFormProps = {
     adresses: UserAddress[];
+    source?: 'reservation' | 'profile';
 }
 
 const AddressesForm = (props: AddressFormProps) => {
@@ -36,7 +37,7 @@ const AddressesForm = (props: AddressFormProps) => {
                 {active ? <AddAddress mode={activeMode} display="form" toggleActive={toggleAddActive} addressValue={editingAddress} resetAddress={resetEditingAddress}/> : null}
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                {props.adresses.map((address, index) => <Address address={address} key={index} index={index + 1} toggleEdit={toggleEditingAddress}/>)}
+                {props.adresses.map((address, index) => <Address address={address} key={index} index={index + 1} toggleEdit={toggleEditingAddress} source={props.source}/>)}
                 {!active && props.adresses.length < 3 ? <AddAddress mode="add" display="block" toggleActive={toggleAddActive}/> : null}
             </div>
         </>

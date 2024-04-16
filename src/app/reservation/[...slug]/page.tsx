@@ -21,7 +21,6 @@ export default async function Search({ params }: { params: { slug: string } }) {
     return (
         <NavLayout>
             <Reservation caregiver={caregiver}/>
-            {JSON.stringify(params)}
         </NavLayout>
     )
 }

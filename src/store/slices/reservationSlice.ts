@@ -6,13 +6,17 @@ type ReservationState = {
     endBlock: TSerializedAvailabilityBlock | undefined;
     serviceId: string | undefined;
     caregiverId: string | undefined;
+    addressId: string | undefined;
+    personId: string | undefined;
 }
 
 const initialState: ReservationState = {
     startBlock: undefined,
     endBlock: undefined,
     serviceId: undefined,
-    caregiverId: undefined
+    caregiverId: undefined,
+    addressId: undefined,
+    personId: undefined
 }
 
 export const reservationSlice = createSlice({
@@ -26,9 +30,15 @@ export const reservationSlice = createSlice({
         setServiceData: (state, action: PayloadAction<{serviceId: string, caregiverId: string}>) => {
             state.serviceId = action.payload.serviceId;
             state.caregiverId = action.payload.caregiverId;
+        },
+        setAddress: (state, action: PayloadAction<string | undefined>) => {
+            state.addressId = action.payload;
+        },
+        setPerson: (state, action: PayloadAction<string | undefined>) => {
+            state.personId = action.payload;
         }
     }
 });
 
-export const { setReservationBlocks, setServiceData } = reservationSlice.actions;
+export const { setReservationBlocks, setServiceData, setAddress, setPerson } = reservationSlice.actions;
 export default reservationSlice.reducer;

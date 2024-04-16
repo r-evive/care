@@ -16,13 +16,11 @@ const ReservationLayout = async (props: PropsWithChildren<Props>) => {
 
     return (
         <div className="container mx-auto py-8">
-            <div className="grid grid-cols-4 lg:grid-cols-12 gap-6 px-4 order-last sm:order-first">
+            <div className="grid grid-cols-4 lg:grid-cols-12 gap-6 px-4 order-last lg:order-first">
                 <div className="col-span-4 lg:col-span-9 ">
-                    <div className="bg-white shadow rounded-lg p-6">
-                        {props.content}
-                    </div>
+                    {props.content}
                 </div>
-                <div className="col-span-4 lg:col-span-3 order-first sm:order-last">
+                <div className="col-span-4 lg:col-span-3 order-first lg:order-last">
                     <div className="bg-white shadow rounded-lg p-6">
                         {props.side}
                     </div>

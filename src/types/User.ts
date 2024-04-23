@@ -16,17 +16,22 @@ export interface UserRegisterInputs {
 }
 
 export type UserAddress = {
-    id?: string;
+    id?: number;
     street: string;
     code: string;
     city: string;
 }
 
 export type UserPerson = {
-    id?: string;
+    id?: number;
     firstName: string;
     lastName: string;
     birthDate: Date;
+}
+
+export type ReservationUserPersonAddress = {
+    people: UserPerson[] | null;
+    addresses: UserAddress[] | null;
 }
 
 export type AvailabilityScope = {
@@ -44,6 +49,9 @@ export type AvailabilityBlock = {
     reservationId?: string;
 }
 
+export type ReservationAvailability = {
+    availability: AvailabilityScope[] | undefined;
+}
 
 export type TSerializedAvailabilityBlock = {
     id: string;

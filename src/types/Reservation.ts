@@ -15,3 +15,23 @@ export type TReservationScope = {
     end: moment.Moment;
     duration: number;
 }
+
+export type TReservationCreate = {
+    caregiverID: string;
+    clientID: string;
+    serviceID: string;
+    startTime: Date;
+    endTime: Date;
+    personID: number;
+    addressID: number;
+}
+
+export type TReservationCreatePayload = {
+    caregiverID: string;
+    clientID: string;
+    serviceID: string;
+    startTime: string;
+    endTime: string;
+    personID: number;
+    addressID: number;
+}

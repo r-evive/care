@@ -25,7 +25,7 @@ export const extendedUserApi = appAPI.injectEndpoints({
                 body,
             }),
         }),
-        deleteAddress: builder.mutation<DefaultResponse, string>({
+        deleteAddress: builder.mutation<DefaultResponse, number>({
             query: (id) => ({
                 url: '/restricted/user/address',
                 method: 'DELETE',
@@ -46,7 +46,7 @@ export const extendedUserApi = appAPI.injectEndpoints({
                 body,
             }),
         }),
-        deletePerson: builder.mutation<DefaultResponse, string>({
+        deletePerson: builder.mutation<DefaultResponse, number>({
             query: (id) => ({
                 url: '/restricted/user/person',
                 method: 'DELETE',

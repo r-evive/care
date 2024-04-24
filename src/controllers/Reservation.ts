@@ -84,7 +84,11 @@ export const CreateReservation = async (reservationData: TReservationCreate) => 
     }, {
         $set: {
             "availability.$.blocks": availabilityBlocks.map((block:AvailabilityBlock) => {
-                if(block.startTime.getTime() >= reservationData.startTime.getTime() && block.endTime.getTime() <= reservationData.endTime.getTime()){
+                if(reservationData.startTime.getTime() === reservationData.endTime.getTime() && block.startTime.getTime() === reservationData.startTime.getTime() && block.endTime.getTime() === reservationData.endTime.getTime()){
+                    block.status = "booked";
+                    block.reservationId = reservationID._id?.toString();
+                }
+                else if(block.startTime.getTime() >= reservationData.startTime.getTime() && block.endTime.getTime() <= reservationData.endTime.getTime()){
                     block.status = "booked";
                     block.reservationId = reservationID._id?.toString();
                 }

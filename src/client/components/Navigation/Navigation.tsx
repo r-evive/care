@@ -4,6 +4,7 @@ import ControlSection from './ControlSection/ControlSection';
 import { useSession } from 'next-auth/react';
 import { useIsSignedIn } from '@/client/hooks/useIsSignedIn';
 import LoginSection from './LoginSection/LoginSection';
+import Link from 'next/link'
 
 type Props = {
     hasSession?: boolean
@@ -24,20 +25,20 @@ const Navigation = (props: Props) => {
                     <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
                         <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white">
                             <li>
-                                <a href="#" className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0" aria-current="page">Home</a>
+                                <Link href="/" className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0" aria-current="page">Strona główna</Link>
                             </li>
                             <li>
-                                <a href="#" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">About</a>
+                                <Link href="/my-reservations" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Rezerwacje</Link>
                             </li>
-                            <li>
-                                <a href="#" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Services</a>
+                            {/* <li>
+                                <a href="#" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Service s</a>
                             </li>
                             <li>
                                 <a href="#" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Pricing</a>
                             </li>
                             <li>
                                 <a href="#" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Contact</a>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
                 </div>

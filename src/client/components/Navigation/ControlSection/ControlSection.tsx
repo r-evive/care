@@ -4,6 +4,7 @@ import { signOut, useSession } from "next-auth/react";
 import { useRef, useState } from "react";
 import { BsDoorOpen, BsGear } from "react-icons/bs"
 import { useRouter } from "next/navigation";
+import Link from 'next/link'
 
 
 
@@ -47,8 +48,8 @@ const ControlSection = () => {
                         <span className="block text-sm  text-gray-500 truncate">{roleLabel}</span>
                     </div>
                     <ul className="py-2" aria-labelledby="user-menu-button">
-                        <li onClick={openProfileTab}>
-                            <a className="flex px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer hover:text-blue-500 whitespace-nowrap items-center gap-2"><BsGear /> Ustawienia</a>
+                        <li>
+                            <Link href="/profile/settings" className="flex px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer hover:text-blue-500 whitespace-nowrap items-center gap-2"><BsGear /> Ustawienia</Link>
                         </li>
                         <li onClick={handleLogout}>
                             <a className="flex px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer hover:text-blue-500 whitespace-nowrap items-center gap-2"><BsDoorOpen /> Wyloguj</a>

@@ -41,7 +41,7 @@ const ReservationButton = () => {
         if(reservationData){
             createReservation(reservationData).unwrap().then(() => {
                 toast.success('Rezerwacja utworzona!');
-                router.push('/');
+                router.push('/my-reservations');
             }).catch((err) => {
                 console.log(err);
                 toast.error('Coś poszło nie tak!');

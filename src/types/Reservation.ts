@@ -1,4 +1,6 @@
 import moment from "moment";
+import { TCaregiverDetails, TClientDetails, UserAddress, UserPerson } from "./User";
+import { TService } from "@/models/Service";
 
 export type TReservation = {
     _id: string;
@@ -34,4 +36,16 @@ export type TReservationCreatePayload = {
     endTime: string;
     personID: number;
     addressID: number;
+}
+
+
+export type TReservationDetails = {
+    _id: string;
+    caregiver: TCaregiverDetails | null,
+    client: TClientDetails | null;
+    service: TService | null;
+    startTime: string;
+    endTime: string;
+    person: UserPerson;
+    address: UserAddress;
 }

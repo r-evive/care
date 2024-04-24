@@ -68,3 +68,9 @@ export type TCaregiverDetails = {
     lastName: string;
     description: string;
 }
+
+export type TClientDetails = {
+    _id: string;
+    firstName: string;
+    lastName: string;
+}

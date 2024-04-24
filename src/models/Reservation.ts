@@ -8,7 +8,7 @@ export type TReservation = {
     clientID: string;
     serviceID: string;
     startTime: Date;
-    endTIme: Date;
+    endTime: Date;
     person: UserPerson;
     address: UserAddress;
 }

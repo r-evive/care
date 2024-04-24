@@ -3,7 +3,7 @@
 import { authOptions } from "@/lib/auth";
 import connectDatabase from "@/lib/mongodb";
 import Users from "@/models/Users";
-import { AvailabilityBlock, AvailabilityScope, UserAddress, UserPerson } from "@/types/User";
+import { AvailabilityBlock, AvailabilityScope, TClientDetails, UserAddress, UserPerson } from "@/types/User";
 import moment from "moment";
 import { getServerSession } from "next-auth";
 import { getCsrfToken, getSession } from "next-auth/react";
@@ -34,6 +34,19 @@ export async function getUserPeople():Promise<UserPerson[]>{
     if(!user) return [];
 
     return user.people;
+}
+
+export const GetClientDetails = async (clientID: string): Promise<TClientDetails | null> => {
+    await connectDatabase();
+
+    if(!clientID) return null;
+
+    let client:TClientDetails | null = await Users.findById(clientID, {
+        firstName: 1,
+        lastName: 1,
+    }).lean();
+
+    return client;
 }
 
 

@@ -1,9 +1,12 @@
 import connectDatabase from "@/lib/mongodb";
 import Reservation, { TReservation } from "@/models/Reservation";
+import { TService } from "@/models/Service";
 import Users from "@/models/Users";
-import { TReservationCreate } from "@/types/Reservation";
-import { AvailabilityBlock, AvailabilityScope, ReservationAvailability, ReservationUserPersonAddress, TCaregiverDetails, UserAddress, UserPerson } from "@/types/User";
+import { TReservationCreate, TReservationDetails } from "@/types/Reservation";
+import { AvailabilityBlock, AvailabilityScope, ReservationAvailability, ReservationUserPersonAddress, TCaregiverDetails, TClientDetails, UserAddress, UserPerson } from "@/types/User";
 import moment from "moment";
+import { GetServiceDetails } from "./Services";
+import { GetClientDetails } from "./User";
 
 export const GetCaregiverDetails = async (caregiverId: string): Promise<TCaregiverDetails | null> => {
     await connectDatabase();
@@ -89,4 +92,61 @@ export const CreateReservation = async (reservationData: TReservationCreate) => 
             })
         }
     });
+}
+
+export const GetReservationDetails = async (reservationId: string | undefined | null): Promise<TReservationDetails | null> => {
+    await connectDatabase();
+
+    if(!reservationId) return null;
+
+    let reservationDetails:TReservation | null = await Reservation.findById(reservationId).lean();
+
+    if(!reservationDetails?._id)
+        return null;
+
+    let caregiverDetails:TCaregiverDetails | null = reservationDetails?.caregiverID ?  await GetCaregiverDetails(reservationDetails?.caregiverID) : null;
+    let serviceDetails:TService | null = reservationDetails?.serviceID ? await GetServiceDetails(reservationDetails?.serviceID) : null;
+    let clientDetails:TClientDetails | null = reservationDetails?.clientID ? await GetClientDetails(reservationDetails?.clientID) : null;
+
+
+    let reservationData:TReservationDetails = {
+        _id: reservationDetails?._id?.toString(),
+        caregiver: caregiverDetails,
+        client: clientDetails,
+        service: serviceDetails,
+        startTime: reservationDetails?.startTime.toString(),
+        endTime: reservationDetails?.endTime.toString(),
+        person: reservationDetails?.person,
+        address: reservationDetails?.address,
+    }
+
+    return reservationData;
+}
+
+export const GetUserReservations = async (userId: string): Promise<TReservationDetails[]> => {
+    await connectDatabase();
+
+    if(!userId) return [];
+
+    let currentDate = moment().startOf('day').toDate();
+
+    let reservations:TReservation[] = await Reservation.find({
+        clientID: userId,
+        endTime: {
+            $gte: currentDate
+        }
+    }).sort({startTime: -1}).lean();
+
+    if(!reservations)
+        return [];
+
+    let reservationsData: TReservationDetails[] = [];
+
+    for(let reservation of reservations){
+        let reservationDetails:TReservationDetails | null = await GetReservationDetails(reservation._id);
+        if(reservationDetails)
+            reservationsData.push(reservationDetails);
+    }
+
+    return reservationsData;
 }

@@ -16,6 +16,15 @@ export const GetAllSerivices = async (): Promise<TService[]> => {
     return services;
 }
 
+export const GetServiceDetails = async (serviceID: string): Promise<TService | null> => {
+    await connectDatabase();
+
+    if(!serviceID) return null;
+
+    let service:TService | null = await Service.findById(serviceID).lean();
+
+    return service;
+}
 
 export const SearchResource = async (cityId:string, serviceId:string, query: TSearchService): Promise<TServiceUser[]> => {
     await connectDatabase();

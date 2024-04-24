@@ -21,7 +21,7 @@ const Address = ({address, index, toggleEdit, source}: AddressProps) => {
 
     const handleDelete = () => {
         if(!address.id) return;
-        deleteAddress(address.id).unwrap().then((res) => {
+        deleteAddress(address.id.toString()).unwrap().then((res) => {
             router.refresh();
         }).catch((err) => {
             toast.error('Wystąpił błąd podczas usuwania adresu! Spróbuj ponownie później!');
@@ -39,7 +39,7 @@ const Address = ({address, index, toggleEdit, source}: AddressProps) => {
             if(selectedAddress == address.id)
                 dispatch(setAddress(undefined));
             else
-                dispatch(setAddress(address.id));
+                dispatch(setAddress(address.id?.toString()));
         }
     }
 

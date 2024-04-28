@@ -1,5 +1,6 @@
 import { AvailabilityBlock, AvailabilityScope, TSerializedAvailabilityBlock } from "@/types/User";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { start } from "repl";
 
 type ReservationState = {
     startBlock: TSerializedAvailabilityBlock | undefined;
@@ -24,8 +25,15 @@ export const reservationSlice = createSlice({
     initialState,
     reducers: {
         setReservationBlocks: (state, action: PayloadAction<{startBlock: TSerializedAvailabilityBlock, endBlock: TSerializedAvailabilityBlock}>) => {
-            state.startBlock = action.payload.startBlock;
-            state.endBlock = action.payload.endBlock;
+            if(new Date(action.payload.startBlock.startTime) > new Date(action.payload.endBlock.startTime)) {
+                let tempBlock = action.payload.startBlock;
+                action.payload.startBlock = action.payload.endBlock;
+                action.payload.endBlock = tempBlock;
+            }
+            else{
+                state.startBlock = action.payload.startBlock;
+                state.endBlock = action.payload.endBlock;
+            }
         },
         setServiceData: (state, action: PayloadAction<{serviceId: string, caregiverId: string}>) => {
             state.serviceId = action.payload.serviceId;

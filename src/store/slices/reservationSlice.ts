@@ -27,8 +27,8 @@ export const reservationSlice = createSlice({
         setReservationBlocks: (state, action: PayloadAction<{startBlock: TSerializedAvailabilityBlock, endBlock: TSerializedAvailabilityBlock}>) => {
             if(new Date(action.payload.startBlock.startTime) > new Date(action.payload.endBlock.startTime)) {
                 let tempBlock = action.payload.startBlock;
-                action.payload.startBlock = action.payload.endBlock;
-                action.payload.endBlock = tempBlock;
+                state.startBlock = action.payload.endBlock;
+                state.endBlock = tempBlock;
             }
             else{
                 state.startBlock = action.payload.startBlock;

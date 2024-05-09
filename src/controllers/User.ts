@@ -116,6 +116,19 @@ export async function getAvailability():Promise<AvailabilityScope[]>{
     return userAvailability;
 }
 
+export async function changeUserRole(userID: string, role: string):Promise<boolean>{
+    await connectDatabase();
+
+    try{
+        await Users.updateOne({ _id: userID }, { $set: { role }});
+    }
+    catch(e){
+        return false;
+    }
+
+    return true;
+}
+
 export async function setAvailability(userID: string, availability: AvailabilityScope[]):Promise<boolean>{
     await connectDatabase();
 

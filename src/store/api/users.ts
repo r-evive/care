@@ -8,6 +8,10 @@ export type UserSettingsUpdatePayload = {
     description: string;
 }
 
+export type UserRoleUpdatePayload = {
+    userId: string;
+    role: string;
+}
 
 export const extendedUserApi = appAPI.injectEndpoints({
     endpoints: (builder) => ({
@@ -66,6 +70,13 @@ export const extendedUserApi = appAPI.injectEndpoints({
                 method: 'POST',
                 body,
             }),
+        }),
+        changeUserRole: builder.mutation<DefaultResponse, UserRoleUpdatePayload>({
+            query: (body) => ({
+                url: '/restricted/user/role',
+                method: 'POST',
+                body,
+            })
         })
     }),
 })
@@ -73,5 +84,5 @@ export const extendedUserApi = appAPI.injectEndpoints({
 export const {  useUpdateUserSettingsMutation,
                 useAddAddressMutation, useDeleteAddressMutation, useUpdateAddressMutation,
                 useAddPersonMutation, useDeletePersonMutation, useUpdatePersonMutation,
-                useSetAvailabilityMutation
+                useSetAvailabilityMutation, useChangeUserRoleMutation
                 } = extendedUserApi;

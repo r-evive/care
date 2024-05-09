@@ -74,3 +74,11 @@ export type TClientDetails = {
     firstName: string;
     lastName: string;
 }
+
+export type TUserProfile = {
+    _id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    role: string;
+}

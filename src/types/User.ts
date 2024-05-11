@@ -82,3 +82,9 @@ export type TUserProfile = {
     lastName: string;
     role: string;
 }
+
+export interface TCaregiverProfile extends TUserProfile{
+    description: string;
+    city: string;
+    service: string;
+}

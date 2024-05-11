@@ -8,6 +8,12 @@ export type UserSettingsUpdatePayload = {
     description: string;
 }
 
+export type CaregiverSettingsPayload = {
+    city: string;
+    service: string;
+}
+
+
 export type UserRoleUpdatePayload = {
     userId: string;
     role: string;
@@ -77,12 +83,18 @@ export const extendedUserApi = appAPI.injectEndpoints({
                 method: 'POST',
                 body,
             })
-        })
+        }),
+        changeCaregiverSettings: builder.mutation<DefaultResponse, CaregiverSettingsPayload>({
+            query: (body) => ({
+                url: '/restricted/caregiver/settings',
+                method: 'PATCH',
+                body,
+        })}),
     }),
 })
 
 export const {  useUpdateUserSettingsMutation,
                 useAddAddressMutation, useDeleteAddressMutation, useUpdateAddressMutation,
                 useAddPersonMutation, useDeletePersonMutation, useUpdatePersonMutation,
-                useSetAvailabilityMutation, useChangeUserRoleMutation
+                useSetAvailabilityMutation, useChangeUserRoleMutation, useChangeCaregiverSettingsMutation
                 } = extendedUserApi;

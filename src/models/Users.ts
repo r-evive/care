@@ -14,6 +14,8 @@ export type TUser = {
     refreshToken?: string;
     addresses?: Array<UserAddress>;
     people?: Array<UserPerson>;
+    city?: string;
+    service?: string;
 }
 
 export type TUserSession = {
@@ -70,6 +72,14 @@ export const UserSchema = new Schema({
         default: []
     },
     description: {
+        type: String,
+        default: ''
+    },
+    city: {
+        type: String,
+        default: ''
+    },
+    service: {
         type: String,
         default: ''
     },

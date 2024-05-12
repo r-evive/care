@@ -30,6 +30,9 @@ const Navigation = (props: Props) => {
                             <li>
                                 <Link href="/my-reservations" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Rezerwacje</Link>
                             </li>
+                            <li>
+                                <Link href="/manage/users" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Zarządzaj</Link>
+                            </li>
                             {/* <li>
                                 <a href="#" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Service s</a>
                             </li>

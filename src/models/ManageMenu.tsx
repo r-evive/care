@@ -37,16 +37,9 @@ export const ManageMenu: TManageMenu[] = [
     {
         key: 4,
         label: 'Miasta i usługi',
-        path: '/services',
+        path: '/cities',
         icon: <FaCity />,
         order: 3,
-    },
-    {
-        key: 5,
-        label: 'Ustawienia',
-        path: '/settings',
-        icon: <BsGearFill/>,
-        order: 4,
     },
 ]
 

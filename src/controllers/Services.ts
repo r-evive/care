@@ -16,6 +16,18 @@ export const GetAllSerivices = async (): Promise<TService[]> => {
     return services;
 }
 
+export const GetAllCityServices = async (cityID: string): Promise<TService[]> => {
+    await connectDatabase();
+    let services:TService[] = await Service.find({city: cityID}).lean();
+    services = services.map(service => {
+        if(service._id)
+            service._id = service._id.toString();
+        return service;
+    });
+
+    return services;
+}
+
 export const GetServiceDetails = async (serviceID: string): Promise<TService | null> => {
     await connectDatabase();
 
@@ -93,4 +105,32 @@ export const SearchResource = async (cityId:string, serviceId:string, query: TSe
     ])
 
     return careGivers;
+}
+
+export const EditService = async (id:string, name:string): Promise<boolean> => {
+    await connectDatabase();
+    let service = await Service.findById(id);
+
+    if(!service){
+        return false;
+    }
+
+    service.name = name;
+
+    await service.save();
+
+    return true;
+}
+
+export const AddService = async (name:string, city:string): Promise<string> => {
+    await connectDatabase();
+    let service = new Service({
+        name: name,
+        city: city,
+        description: 'No description available'
+    });
+
+    await service.save();
+
+    return service._id.toString();
 }

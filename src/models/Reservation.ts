@@ -13,7 +13,6 @@ export type TReservation = {
     address: UserAddress;
 }
 
-
 export const ReservationSchema = new Schema({
     caregiverID: {
         required: true,

@@ -154,3 +154,38 @@ export const GetUserReservations = async (userId: string): Promise<TReservationD
 
     return reservationsData;
 }
+
+export const GetAllReservations = async (): Promise<TReservationDetails[]> => {
+    await connectDatabase();
+
+    let reservations:TReservation[] = await Reservation.find().sort({startTime: -1}).lean();
+
+    let reservationsDetails:TReservationDetails[] = [];
+
+    for(let reservation of reservations){
+        let reservationDetails:TReservation | null = await Reservation.findById(reservation._id).lean();
+
+        if(!reservationDetails?._id)
+            continue;
+
+        let caregiverDetails:TCaregiverDetails | null = reservationDetails?.caregiverID ?  await GetCaregiverDetails(reservationDetails?.caregiverID) : null;
+        let serviceDetails:TService | null = reservationDetails?.serviceID ? await GetServiceDetails(reservationDetails?.serviceID) : null;
+        let clientDetails:TClientDetails | null = reservationDetails?.clientID ? await GetClientDetails(reservationDetails?.clientID) : null;
+
+
+        let reservationData:TReservationDetails = {
+            _id: reservationDetails?._id?.toString(),
+            caregiver: caregiverDetails,
+            client: clientDetails,
+            service: serviceDetails,
+            startTime: reservationDetails?.startTime.toString(),
+            endTime: reservationDetails?.endTime.toString(),
+            person: reservationDetails?.person,
+            address: reservationDetails?.address,
+        }
+
+        reservationsDetails.push(reservationData);
+    }
+
+    return reservationsDetails;
+}

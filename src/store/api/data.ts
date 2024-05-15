@@ -3,6 +3,7 @@ import { DefaultResponse } from "@/types/Response";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { appAPI } from "./app";
 import { TService } from "@/models/Service";
+import { TCityManage, TServiceManage } from "@/types/Service";
 
 
 
@@ -23,7 +24,21 @@ export const extendedDataApi = appAPI.injectEndpoints({
                 }
             }),
         }),
+        changeCity: builder.mutation<DefaultResponse, TCityManage>({
+            query: (city) => ({
+                url: '/restricted/cities',
+                method: 'POST',
+                body: city
+            }),
+        }),
+        changeService: builder.mutation<DefaultResponse, TServiceManage>({
+            query: (service) => ({
+                url: '/restricted/services',
+                method: 'POST',
+                body: service
+            }),
+        })
     }),
 })
 
-export const { useGetCitiesQuery, useGetServicesQuery } = extendedDataApi;
+export const { useGetCitiesQuery, useGetServicesQuery, useChangeCityMutation, useChangeServiceMutation } = extendedDataApi;

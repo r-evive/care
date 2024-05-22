@@ -5,6 +5,8 @@ import { useSession } from 'next-auth/react';
 import { useIsSignedIn } from '@/client/hooks/useIsSignedIn';
 import LoginSection from './LoginSection/LoginSection';
 import Link from 'next/link'
+import useCaregiverRole from '@/client/hooks/useCaregiverRole';
+import useAdminRole from '@/client/hooks/useAdminRole';
 
 type Props = {
     hasSession?: boolean
@@ -12,6 +14,9 @@ type Props = {
 
 const Navigation = (props: Props) => {
     const isSignedIn = useIsSignedIn(props?.hasSession ?? false);
+
+    const caregiverRole = useCaregiverRole();
+    const adminRole = useAdminRole();
 
     return (
         <>
@@ -30,10 +35,14 @@ const Navigation = (props: Props) => {
                             <li>
                                 <Link href="/my-reservations" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Rezerwacje</Link>
                             </li>
-                            <li>
+                            {caregiverRole && <li>
+                                <Link href="/schedule" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Harmonogram</Link>
+                            </li>}
+                            {adminRole && <li>
                                 <Link href="/manage/users" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Zarządzaj</Link>
-                            </li>
+                            </li>}
                             {/* <li>
+
                                 <a href="#" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Service s</a>
                             </li>
                             <li>

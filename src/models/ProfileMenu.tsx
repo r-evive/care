@@ -9,6 +9,7 @@ export type TProfileMenu = {
     path: string;
     icon: ReactElement | ReactNode;
     order: number;
+    caregiverOnly: boolean;
 }
 
 
@@ -19,6 +20,7 @@ export const ProfileMenu: TProfileMenu[] = [
         path: '/settings',
         icon: <BsGearFill/>,
         order: 0,
+        caregiverOnly: false,
     },
     {
         key: 2,
@@ -26,6 +28,7 @@ export const ProfileMenu: TProfileMenu[] = [
         path: '/addresses',
         icon: <BsGeoAltFill/>,
         order: 1,
+        caregiverOnly: false,
     },
     {
         key: 3,
@@ -33,6 +36,7 @@ export const ProfileMenu: TProfileMenu[] = [
         path: '/people',
         icon: <BsPeopleFill/>,
         order: 2,
+        caregiverOnly: false,
     },
     {
         key: 4,
@@ -40,6 +44,7 @@ export const ProfileMenu: TProfileMenu[] = [
         path: '/availability',
         icon: <BsCalendarWeekFill/>,
         order: 3,
+        caregiverOnly: true,
     },
 ]
 

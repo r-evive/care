@@ -7,6 +7,7 @@ import React from 'react'
 import ProfileMenuItem from './ProfileMenuItem/ProfileMenuItem'
 import { PropsWithChildren } from 'react';
 import Names from './Names/Names'
+import useServerCaregiverRole from '@/hooks/useServerCaregiverRole'
 
 
 
@@ -17,6 +18,7 @@ type Props = {
 const ProfileLayout = async ({ path, children }: PropsWithChildren<Props>) => {
     let session = await getServerSession(authOptions);
     let menu = await GetProfileMenu();
+    let caregiverRole = await useServerCaregiverRole();
 
     return (
         <div className="container mx-auto py-8">
@@ -31,7 +33,10 @@ const ProfileLayout = async ({ path, children }: PropsWithChildren<Props>) => {
                         </div>
                         <hr className="my-6 border-t border-gray-300" />
                         <div className="flex flex-col">
-                            {menu.map((item: TProfileMenu, index:number) => {
+                            {menu.filter(role => {
+                                if(caregiverRole) return true;
+                                return !role.caregiverOnly;
+                            }).map((item: TProfileMenu, index:number) => {
                                 return (
                                     <ProfileMenuItem item={item} index={index} path={path} key={index} />
                                 )

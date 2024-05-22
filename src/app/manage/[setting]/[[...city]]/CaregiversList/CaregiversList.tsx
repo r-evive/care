@@ -52,7 +52,7 @@ const CaregiversList = async (props: CaregiversListProps) => {
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     {index + 1}.
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
+                                <td className="px-6 py-4 whitespace-nowrap w-full">
                                     {user.email}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">

@@ -48,5 +48,6 @@ export type TReservationDetails = {
     endTime: string;
     person: UserPerson;
     address: UserAddress;
+    status: string;
 }
 

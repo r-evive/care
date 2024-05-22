@@ -70,7 +70,7 @@ export const CreateReservation = async (reservationData: TReservationCreate) => 
         serviceID: reservationData.serviceID,
         startTime: reservationData.startTime,
         endTime: reservationData.endTime,
-        status: "accepted",
+        status: "pending",
         person: personData,
         address: addressData,
     })
@@ -122,6 +122,7 @@ export const GetReservationDetails = async (reservationId: string | undefined | 
         endTime: reservationDetails?.endTime.toString(),
         person: reservationDetails?.person,
         address: reservationDetails?.address,
+        status: reservationDetails?.status
     }
 
     return reservationData;
@@ -182,10 +183,29 @@ export const GetAllReservations = async (): Promise<TReservationDetails[]> => {
             endTime: reservationDetails?.endTime.toString(),
             person: reservationDetails?.person,
             address: reservationDetails?.address,
+            status: reservationDetails?.status
         }
 
         reservationsDetails.push(reservationData);
     }
 
     return reservationsDetails;
+}
+
+
+export const ChangeReservationStatus = async (reservationData: {reservationID: string, status: string}) => {
+    await connectDatabase();
+
+    let reservationDetails:TReservation | null = await Reservation.findById(reservationData.reservationID).lean();
+
+    if(!reservationDetails?._id)
+        throw new Error("Reservation not found");
+
+    await Reservation.updateOne({
+        _id: reservationData.reservationID
+    }, {
+        $set: {
+            status: reservationData.status
+        }
+    })
 }

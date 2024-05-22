@@ -50,13 +50,10 @@ const Details = ({reservation}: ReservationProps) => {
     return (
         <>
             <div className="flex flex-nowrap w-full pb-5 border-b-2">
-                    <div>
-                        <img src="https://avatar.iran.liara.run/public/boy" alt="Placeholder" className="w-16 h-16 object-contain rounded-full border-2 border-gray-300 mr-4" />
-                    </div>
                 <div className="w-full flex-1 flex items-center">
                     <div>
-                        <h2 className="text-xl font-bold pb-1 mt-1">{reservation.caregiver?.firstName} {reservation.caregiver?.lastName} {getReservationStatus()}</h2>
-                        <h4 className="text-md font-light text-blue-700">{reservation.service?.name}</h4>
+                        <h2 className="text-xl font-bold pb-1 mt-1">{reservation.client?.firstName} {reservation.client?.lastName} {getReservationStatus()}</h2>
+                        <h4 className="text-md font-light text-blue-700">Usługa: {reservation.service?.name}</h4>
                     </div>
                     <div>
 

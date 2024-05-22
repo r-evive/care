@@ -15,7 +15,14 @@ export const extendedReservationsApi = appAPI.injectEndpoints({
                 body,
             }),
         }),
+        changeStatus: builder.mutation<DefaultResponse, { reservationID: string, status: string }>({
+            query: ({reservationID, status}) => ({
+                url: `/restricted/reservations/status`,
+                method: 'POST',
+                body:  {reservationID, status},
+            }),
+        })
     }),
 })
 
-export const { useCreateReservationMutation } = extendedReservationsApi;
+export const { useCreateReservationMutation, useChangeStatusMutation } = extendedReservationsApi;

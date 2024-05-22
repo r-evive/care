@@ -11,6 +11,7 @@ export type TReservation = {
     endTime: Date;
     person: UserPerson;
     address: UserAddress;
+    status: string;
 }
 
 export const ReservationSchema = new Schema({
@@ -41,6 +42,11 @@ export const ReservationSchema = new Schema({
     address: {
         required: true,
         type: Object
+    },
+    status: {
+        required: true,
+        type: String,
+        default: 'pending'
     }
 })
 

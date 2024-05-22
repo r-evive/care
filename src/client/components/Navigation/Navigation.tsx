@@ -5,8 +5,9 @@ import { useSession } from 'next-auth/react';
 import { useIsSignedIn } from '@/client/hooks/useIsSignedIn';
 import LoginSection from './LoginSection/LoginSection';
 import Link from 'next/link'
-import useCaregiverRole from '@/client/hooks/useCaregiverRole';
+
 import useAdminRole from '@/client/hooks/useAdminRole';
+import { useCaregiverRole } from '@/client/hooks/useCaregiverRole';
 
 type Props = {
     hasSession?: boolean

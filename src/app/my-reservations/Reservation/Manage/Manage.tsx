@@ -1,5 +1,6 @@
 "use client";
-import  useCaregiverRole from "@/client/hooks/useCaregiverRole";
+
+import { useCaregiverRole } from "@/client/hooks/useCaregiverRole";
 import { useChangeStatusMutation } from "@/store/api/reservations";
 import { TReservationDetails } from "@/types/Reservation"
 import { useSession } from "next-auth/react";
